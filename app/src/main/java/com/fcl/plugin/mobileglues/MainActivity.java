@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues;
+package com.fcl.plugin.mobileglues.ap;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -38,10 +38,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.fcl.plugin.mobileglues.ap.databinding.ActivityMainBinding;
-import com.fcl.plugin.mobileglues.settings.FolderPermissionManager;
-import com.fcl.plugin.mobileglues.settings.MGConfig;
-import com.fcl.plugin.mobileglues.utils.Constants;
-import com.fcl.plugin.mobileglues.utils.ResultListener;
+import com.fcl.plugin.mobileglues.ap.settings.FolderPermissionManager;
+import com.fcl.plugin.mobileglues.ap.settings.MGConfig;
+import com.fcl.plugin.mobileglues.ap.utils.Constants;
+import com.fcl.plugin.mobileglues.ap.utils.ResultListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
