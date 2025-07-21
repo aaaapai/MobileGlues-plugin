@@ -5,18 +5,17 @@ plugins {
 
 android {
     namespace = "com.fcl.plugin.mobileglues"
-    compileSdk = 35
+    compileSdk = 36
 
     ndkVersion = "27.1.12297006"
 
     defaultConfig {
         applicationId = "com.fcl.plugin.mobileglues"
-        minSdk = 26
-        targetSdk = 35
+        minSdk = 21
+        targetSdk = 36
         versionCode = 1271
-        versionName = "1.2.7 - hotfix1"
+        versionName = "1.21.7 - hotfix1"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -41,7 +40,7 @@ android {
         configureEach {
             resValue("string","app_name","MobileGlues")
 
-            manifestPlaceholders["des"] = "MobileGlues (OpenGL 4.0, 1.17+)"
+            manifestPlaceholders["des"] = "MobileG鹿es_ap (OpenGL 4.0, 1.17.0.0.0.0++)"
             manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libEGL.so"
 
             manifestPlaceholders["minMCVer"] = "1.17"
@@ -49,7 +48,7 @@ android {
 
             manifestPlaceholders["boatEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
+                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so,libshaderc.so")
             }.run {
                 var env = ""
                 forEach { (key, value) ->
@@ -59,7 +58,7 @@ android {
             }
             manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
+                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so,libshaderc.so")
                 put("POJAV_RENDERER", "opengles3")
             }.run {
                 var env = ""
@@ -72,11 +71,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "21"
     }
     buildFeatures {
         buildConfig = true
