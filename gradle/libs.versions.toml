@@ -6,6 +6,7 @@ kotlin = "2.2.20-Beta1"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
 material = "1.14.0-alpha02"
+binding = "8.12.0-rc01"
 
 [libraries]
 androidx-documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
@@ -13,7 +14,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
+androidx-databinding-runtime = { group = "androidx.databinding:databinding-runtime", name = "binding", version.ref = "binding"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
