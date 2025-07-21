@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.fcl.plugin.mobileglues.ap"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 36
         versionCode = 1271
         versionName = "1.21.7 - hotfix1"
