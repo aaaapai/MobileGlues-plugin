@@ -90,4 +90,5 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.google.material)
+    implementation(libs.androidx.databinding.runtime)
 }
