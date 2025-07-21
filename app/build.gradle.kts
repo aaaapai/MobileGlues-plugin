@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.fcl.plugin.mobileglues"
+    namespace = "com.fcl.plugin.mobileglues.ap"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.fcl.plugin.mobileglues"
+        applicationId = "com.fcl.plugin.mobileglues.ap"
         minSdk = 21
         targetSdk = 36
         versionCode = 1271
