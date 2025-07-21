@@ -26,7 +26,7 @@ import java.util.Objects;
 import androidx.documentfile.provider.DocumentFile;
 import android.provider.DocumentsContract;
 
-import com.fcl.plugin.mobileglues.MainActivity;
+import com.fcl.plugin.mobileglues.ap.MainActivity;
 
 public class FileUtils {
     public static String readText(Context context, Uri uri) throws IOException {
