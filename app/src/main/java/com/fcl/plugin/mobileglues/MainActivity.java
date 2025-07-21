@@ -37,7 +37,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import com.fcl.plugin.mobileglues.settings.FolderPermissionManager;
 import com.fcl.plugin.mobileglues.settings.MGConfig;
 import com.fcl.plugin.mobileglues.utils.Constants;
