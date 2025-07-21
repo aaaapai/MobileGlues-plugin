@@ -7,8 +7,6 @@ android {
     namespace = "com.fcl.plugin.mobileglues"
     compileSdk = 36
 
-    ndkVersion = "27.1.12297006"
-
     defaultConfig {
         applicationId = "com.fcl.plugin.mobileglues"
         minSdk = 21
@@ -38,7 +36,7 @@ android {
         }
 
         configureEach {
-            resValue("string","app_name","MobileGlues")
+            resValue("string","app_name","MobileG鹿es")
 
             manifestPlaceholders["des"] = "MobileG鹿es_ap (OpenGL 4.0, 1.17.0.0.0.0++)"
             manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libEGL.so"
@@ -59,7 +57,7 @@ android {
             manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
                 put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so,libshaderc.so")
-                put("POJAV_RENDERER", "opengles3")
+                put("POJAV_RENDERER", "opengles3_MobileGlues_ap")
             }.run {
                 var env = ""
                 forEach { (key, value) ->
