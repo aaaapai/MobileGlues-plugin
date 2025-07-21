@@ -144,10 +144,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/option_ext_timer_query"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/switch_ext_cs" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/switch_ext_dsa"
+                android:id="@+id/switch_ext_DSA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/option_ext_dsa"
