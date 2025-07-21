@@ -176,7 +176,7 @@ public class MGConfig {
         try {
             save(context);
         } catch (RuntimeException | IOException e) {
-            Log.e("MG", "Failed to save the config file: " + e.getMessage());
+            Log.e("MG_AP", "Failed to save the config file: " + e.getMessage());
         }
     }
 
