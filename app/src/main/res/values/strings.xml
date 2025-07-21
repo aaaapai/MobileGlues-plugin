@@ -39,6 +39,7 @@
     <string name="option_multidraw_mode_multidraw_indirect">Prefer MultiDraw Indirect</string>
     <string name="option_multidraw_mode_drawelements">Force DrawElements</string>
     <string name="option_multidraw_mode_compute">Prefer Compute (experimental)</string>
+    <string name="option_multidraw_mode_compute">Prefer DeepSeek (experimental)</string>
 
     <string name="option_angle_clear_workaround">ANGLE Depth Clear Workaround</string>
     <string name="option_angle_clear_workaround_disable">Disable</string>
