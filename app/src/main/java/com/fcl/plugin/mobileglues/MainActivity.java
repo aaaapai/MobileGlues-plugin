@@ -459,7 +459,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             isSpinnerInitialized = true;
 
         } catch (IOException e) {
-            Logger.getLogger("MG").log(Level.SEVERE, "Failed to load config! Exception: ", e.getCause());
+            Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to load config! Exception: ", e.getCause());
             Toast.makeText(this, getString(R.string.warning_load_failed), Toast.LENGTH_SHORT).show();
         }
     }
@@ -558,7 +558,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 try {
                                     config.setEnableANGLE(i);
                                 } catch (IOException e) {
-                                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -573,7 +573,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     config.setEnableANGLE(i);
                 }
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -582,7 +582,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             try {
                 config.setEnableNoError(i);
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -591,7 +591,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             try {
                 config.setMultidrawMode(i);
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -610,7 +610,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 try {
                                     config.setAngleDepthClearFixMode(i);
                                 } catch (IOException e) {
-                                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -625,7 +625,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     config.setAngleDepthClearFixMode(i);
                 }
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -649,7 +649,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             try {
                                 config.setEnableExtGL43(1);
                             } catch (IOException e) {
-                                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -659,7 +659,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 try {
                     config.setEnableExtGL43(0);
                 } catch (IOException e) {
-                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -674,7 +674,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             try {
                                 config.setEnableExtComputeShader(1);
                             } catch (IOException e) {
-                                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -684,19 +684,46 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 try {
                     config.setEnableExtComputeShader(0);
                 } catch (IOException e) {
-                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                 }
             }
         }
-		if (compoundButton == binding.switchExtTimerQuery && config != null) {
+	if (compoundButton == binding.switchExtTimerQuery && config != null) {
 			try {
 				config.setEnableExtTimerQuery(isChecked ? 0 : 1); // disable (ui) -> enable (json)
 			} catch (IOException e) {
-				Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+				Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
 				Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
 			}
         }
+	if (compoundButton == binding.switchExtDSA && config != null) {
+            if (isChecked) {
+                new MaterialAlertDialogBuilder(MainActivity.this)
+                        .setTitle(getString(R.string.dialog_title_warning))
+                        .setMessage(getString(R.string.warning_ext_dsa_enable))
+                        .setCancelable(false)
+                        .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
+                        .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
+                            try {
+                                config.setEnableExtDSA(1);
+                            } catch (IOException e) {
+                                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtDSA.setChecked(false))
+                        .show();
+            } else {
+                try {
+                    config.setEnableExtDSA(0);
+                } catch (IOException e) {
+                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                    Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+                }
+            }
+	}
+
     }
 
     @Override
