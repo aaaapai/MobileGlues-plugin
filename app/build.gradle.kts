@@ -81,10 +81,6 @@ android {
 
 kotlin {
     jvmToolchain(21) // 自动同步 JDK 工具链（编译、测试、运行均使用 JDK 21）
-    
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21) // 显式设置字节码目标
-    }
 }
 
 dependencies {
