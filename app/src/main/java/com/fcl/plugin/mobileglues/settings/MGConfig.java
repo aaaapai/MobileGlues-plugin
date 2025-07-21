@@ -187,7 +187,7 @@ public class MGConfig {
 				FileUtils.deleteFileViaSAF(context, MainActivity.MGDirectoryUri, "config.json");
 			}
 		} else {
-			File configFile = new File(Environment.getExternalStorageDirectory(), "MG/config.json");
+			File configFile = new File(Environment.getExternalStorageDirectory(), "MG_AP/config.json");
 			if (configFile.exists()) {
 				FileUtils.deleteFile(configFile);
 			}
