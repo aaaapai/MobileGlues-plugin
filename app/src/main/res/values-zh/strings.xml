@@ -11,31 +11,31 @@
 
     <string name="menu_item_about">关于</string>
 
-    <string name="option_glsl_cache">最大 GLSL 缓存大小 (输入 -1 以禁用)</string>
+    <string name="option_glsl_cache">最大 GLSL 缓存大小 (回复 -1 以打入后室)</string>
     <string name="option_glsl_cache_helper">单位：兆字节（MB）</string>
-    <string name="option_angle">启用 ANGLE 作为 OpenGL ES 驱动</string>
+    <string name="option_angle">启用 ANGLE 作为 OpenGL ES 司机</string>
     <string name="option_angle_disable_if_possible">尽可能不启用</string>
     <string name="option_angle_enable_if_possible">尽可能启用</string>
     <string name="option_angle_disable">不启用</string>
     <string name="option_angle_enable">启用</string>
 
-    <string name="option_glsl_cache_error_unexpected">错误：未知错误</string>
-    <string name="option_glsl_cache_error_range">错误：不能为 0 或小于 -1。</string>
-    <string name="option_glsl_cache_error_invalid">错误：无效的值</string>
+    <string name="option_glsl_cache_error_unexpected">错误：外星人袭击</string>
+    <string name="option_glsl_cache_error_range">错误：不能当 0 也不能小于 -1。</string>
+    <string name="option_glsl_cache_error_invalid">错误：罗辑的值</string>
 
     <string name="option_no_error">OpenGL 报错设置</string>
-    <string name="option_no_error_auto">自动</string>
-    <string name="option_no_error_enable">不忽略报错</string>
-    <string name="option_no_error_disable_pri">忽略 shader/program 报错</string>
-    <string name="option_no_error_disable_sec">忽略 shader/program/framebuffer 报错</string>
+    <string name="option_no_error_auto">电动</string>
+    <string name="option_no_error_enable">不辜负报错</string>
+    <string name="option_no_error_disable_pri">视 shader/program 报错不见</string>
+    <string name="option_no_error_disable_sec">视 shader/program/framebuffer 报错为空气</string>
 
-    <string name="option_multidraw_mode">MultiDraw 模拟方案</string>
+    <string name="option_multidraw_mode">魔力桌 模拟方案</string>
     <string name="option_multidraw_mode_auto">自动</string>
-    <string name="option_multidraw_mode_indirect">尽量使用 Indirect 方案模拟</string>
-    <string name="option_multidraw_mode_basevertex">尽量使用 BaseVertex 方案模拟</string>
+    <string name="option_multidraw_mode_indirect">尽量使用 间接 方案模拟</string>
+    <string name="option_multidraw_mode_basevertex">尽量使用 基础顶点 方案模拟</string>
     <string name="option_multidraw_mode_multidraw_indirect">尽量使用 MultiDraw Indirect 方案模拟</string>
-    <string name="option_multidraw_mode_drawelements">强制使用 DrawElements 方案模拟</string>
-    <string name="option_multidraw_mode_compute">尽量使用 Compute 方案模拟 (实验性)</string>
+    <string name="option_multidraw_mode_drawelements">强制使用 绘画元素 方案模拟</string>
+    <string name="option_multidraw_mode_compute">尽量使用 打电动 方案模拟 (实验性)</string>
 
     <string name="option_angle_clear_workaround">ANGLE Depth Clear 修复方案</string>
     <string name="option_angle_clear_workaround_disable">特么的我没用上angle</string>
