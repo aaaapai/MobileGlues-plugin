@@ -380,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.switchExtGl43.setOnCheckedChangeListener(null);
             binding.switchExtCs.setOnCheckedChangeListener(null);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(null);
-	    binding.switchExtDSA.setOnCheckedChangeListener(null);
+	    binding.switchExtDsa.setOnCheckedChangeListener(null);
             config = MGConfig.loadConfig(this);
 
             if (config == null) {
@@ -401,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setSelection(config.getAngleDepthClearFixMode());
             binding.switchExtGl43.setChecked(config.getEnableExtGL43() == 1);
             binding.switchExtTimerQuery.setChecked(config.getEnableExtTimerQuery() == 0);
-	    binding.switchExtDSA.setChecked(config.getEnableExtTimerQuery() == 1);
+	    binding.switchExtDsa.setChecked(config.getEnableExtTimerQuery() == 1);
             binding.switchExtCs.setChecked(config.getEnableExtComputeShader() == 1);
             binding.spinnerAngle.setOnItemSelectedListener(this);
             binding.spinnerNoError.setOnItemSelectedListener(this);
@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
             binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
-	    binding.switchExtDSA.setOnCheckedChangeListener(this);
+	    binding.switchExtDsa.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             binding.inputMaxGlslCacheSize.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -700,7 +700,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
 			}
         }
-	if (compoundButton == binding.switchExtDSA && config != null) {
+	if (compoundButton == binding.switchExtDsa && config != null) {
             if (isChecked) {
                 new MaterialAlertDialogBuilder(MainActivity.this)
                         .setTitle(getString(R.string.dialog_title_warning))
@@ -715,7 +715,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtDSA.setChecked(false))
+                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtDsa.setChecked(false))
                         .show();
             } else {
                 try {
