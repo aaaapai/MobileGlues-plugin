@@ -1,7 +1,7 @@
 -optimizationpasses 7
 -allowaccessmodification
 
--keep class com.fcl.plugin.mobileglues.ap.settings.MGConfig { *; }  // 类名+所有成员
+-keep class com.fcl.plugin.mobileglues.ap.settings.MGConfig { *; }
 
 -whyareyoukeeping class com.fcl.plugin.mobileglues.settings.MGConfig
 -verbose
