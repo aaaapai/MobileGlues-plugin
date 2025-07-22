@@ -33,7 +33,7 @@
             android:id="@+id/option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="10dp"
             android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -151,6 +151,7 @@
                 android:id="@+id/switch_ext_dsa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_insetEdge="bottom"
                 android:text="@string/option_ext_dsa"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
