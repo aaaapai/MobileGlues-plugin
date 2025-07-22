@@ -1,23 +1,15 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-optimizationpasses 7
+-allowaccessmodification
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keep class com.fcl.plugin.mobileglues.** { *; }
+-keepclassmembers class com.fcl.plugin.mobileglues.** { <fields>; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-keep class !com.fcl.plugin.mobileglues.** { *; }  # 其他类随便优化
+-assumenosideeffects class android.util.Log { *; }  # 移除 Log 调用
 
--keep class com.fcl.plugin.mobileglues.settings.MGConfig { *; }
+-whyareyoukeeping class com.fcl.plugin.mobileglues.settings.MGConfig
+-verbose
