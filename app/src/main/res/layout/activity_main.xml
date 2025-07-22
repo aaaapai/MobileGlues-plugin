@@ -143,6 +143,7 @@
                 android:id="@+id/switch_ext_timer_query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_insetEdge="bottom"
                 android:text="@string/option_ext_timer_query"
                 app:layout_constraintBottom_toBottomOf="@+id/switch_ext_dsa" />
 
