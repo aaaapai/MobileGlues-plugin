@@ -401,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setSelection(config.getAngleDepthClearFixMode());
             binding.switchExtGl43.setChecked(config.getEnableExtGL43() == 1);
             binding.switchExtTimerQuery.setChecked(config.getEnableExtTimerQuery() == 0);
-	    binding.switchExtDsa.setChecked(config.getEnableExtTimerQuery() == 1);
+	    binding.switchExtDsa.setChecked(config.getEnableExtDsa() == 1);
             binding.switchExtCs.setChecked(config.getEnableExtComputeShader() == 1);
             binding.spinnerAngle.setOnItemSelectedListener(this);
             binding.spinnerNoError.setOnItemSelectedListener(this);
@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
             binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
-	    binding.switchExtDSA.setOnCheckedChangeListener(this);
+	    binding.switchExtDsa.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             isSpinnerInitialized = true;
 
@@ -709,7 +709,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
                         .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
                             try {
-                                config.setEnableExtDSA(1);
+                                config.setEnableExtDsa(1);
                             } catch (IOException e) {
                                 Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
@@ -719,7 +719,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         .show();
             } else {
                 try {
-                    config.setEnableExtDSA(0);
+                    config.setEnableExtDsa(0);
                 } catch (IOException e) {
                     Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
