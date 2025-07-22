@@ -10,6 +10,7 @@
 
 -keep class !com.fcl.plugin.mobileglues.** { *; }  # 其他类随便优化
 -assumenosideeffects class android.util.Log { *; }  # 移除 Log 调用
+-dontwarn javax.lang.model.element.Modifier.**
 
 -whyareyoukeeping class com.fcl.plugin.mobileglues.settings.MGConfig
 -verbose
