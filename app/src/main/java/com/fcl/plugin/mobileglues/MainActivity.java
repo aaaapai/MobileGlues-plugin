@@ -777,7 +777,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 EGL14.EGL_RED_SIZE, 8,
                 EGL14.EGL_GREEN_SIZE, 8,
                 EGL14.EGL_BLUE_SIZE, 8,
-                EGL14.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES3_BIT,
+                EGL14.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES2_BIT,
                 EGL14.EGL_NONE
         };
         android.opengl.EGLConfig[] eglConfigs = new android.opengl.EGLConfig[1];
