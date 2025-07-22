@@ -60,6 +60,7 @@
     <string name="dialog_title_warning">天打雷劈！</string>
     <string name="warning_ext_gl43_enable">启用商鞅的 OpenGL4 3456 扩展可能会导致部分光影、Mods错误以及赤D__ksuck的石，是否继续？</string>
     <string name="warning_ext_cs_enable">启用大卸八块的 ARB_compute_shader 扩展也许会导致部分光影、Mods错误，是否继续...吧？</string>
+    <string name="warning_ext_dsa_enable">启用根本就是一坨稀碎的sh_t的 DSA 扩展非常可能会导致部分光影、Mods错误甚至游戏本体错误以及赤DeepSeek的尸米，是否想被艹？</string>
 
     <string name="warning_adreno_740_angle">在 肾上腺素740 蛇备上启动 角度 极有可能导致严重的渲染错误，是否继续？</string>
     <string name="warning_enabling_angle_clear_workaround">启用 ANGLE Depth Clear 修复会修复 ANGLE 在 Minecraft 1.21.5+ 原版中的手持物品被遮挡的问题，但修复被吃了，是否继续？</string>
