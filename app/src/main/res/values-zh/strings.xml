@@ -5,7 +5,7 @@
     <string name="view_version">版本：</string>
     <string name="view_author">开发者：</string>
     <string name="view_copyright">开源许可证：</string>
-    <string name="view_launcher">兼容的启动器：</string>
+    <string name="view_launcher">已艹的启动器：</string>
 
     <string name="open_options">修改渲染器设置</string>
 
@@ -55,7 +55,7 @@
 
     <string name="dialog_permission_title">提示</string>
     <string name="dialog_permission_msg">修改渲染选项需要康康你的权限正不正常，请送读写权限后再滚回来。</string>
-    <string name="dialog_permission_msg_android_Q">修改渲染选项需要康康你的权限正不正常，请送读写权限后再滚回来\n您稍后需要选择这个目录：\n%s\n若不存在名为 MG 的文件夹，请自行创建名为 MG 的文件夹。</string>
+    <string name="dialog_permission_msg_android_Q">修改渲染选项需要康康你的权限正不正常，请送读写权限后再滚回来\n您稍后需要选择这个目录：\n%s\n若不存在名为 MG_AP 的文件夹，请自行创建名为 MG_AP 的文件夹。</string>
 
     <string name="dialog_title_warning">天打雷劈！</string>
     <string name="warning_ext_gl43_enable">启用商鞅的 OpenGL4 3456 扩展可能会导致部分光影、Mods错误以及赤D__ksuck的石，是否继续？</string>
