@@ -1,14 +1,12 @@
 -optimizationpasses 7
 -allowaccessmodification
 
--keep class com.fcl.plugin.mobileglues.** { *; }
--keepclassmembers class com.fcl.plugin.mobileglues.** { <fields>; }
-
--keepclassmembers class * {
-    @com.google.gson.annotations.SerializedName <fields>;
-}
-
--keep class !com.fcl.plugin.mobileglues.** { *; }  # 其他类随便优化
+# 保留 MGConfig 类及其所有子类
+-keep class com.fcl.plugin.mobileglues.settings.MGConfig { *; }
+-keep class com.fcl.plugin.mobileglues.settings.MGConfig$* { *; }
+# 保留这些类的所有成员（包括私有）
+-keepclassmembers class com.fcl.plugin.mobileglues.settings.MGConfig { *; }
+-keepclassmembers class com.fcl.plugin.mobileglues.settings.MGConfig$* { *; }
 
 -whyareyoukeeping class com.fcl.plugin.mobileglues.settings.MGConfig
 -verbose
