@@ -29,12 +29,12 @@ public class MGConfig {
     private int multidrawMode;
     private int angleDepthClearFixMode;
 
-    public MGConfig(int enableANGLE, int enableNoError, int enableExtGL43, int enableExtTimerQuery, int enableExtDSA, int enableExtComputeShader, int maxGlslCacheSize, int multidrawMode, int angleDepthClearFixMode) {
+    public MGConfig(int enableANGLE, int enableNoError, int enableExtGL43, int enableExtTimerQuery, int enableExtDsa, int enableExtComputeShader, int maxGlslCacheSize, int multidrawMode, int angleDepthClearFixMode) {
         this.enableANGLE = enableANGLE;
         this.enableNoError = enableNoError;
         this.enableExtGL43 = enableExtGL43;
         this.enableExtTimerQuery = enableExtTimerQuery;
-	this.enableExtDSA = enableExtDSA;
+	this.enableExtDsa = enableExtDsa;
         this.enableExtComputeShader = enableExtComputeShader;
         this.maxGlslCacheSize = maxGlslCacheSize;
         this.multidrawMode = multidrawMode;
@@ -103,12 +103,12 @@ public class MGConfig {
         saveConfig();
     }
 
-    public int getEnableExtDSA() {
-        return enableExtDSA;
+    public int getEnableExtDsa() {
+        return enableExtDsa;
     }
 
-    public void setEnableExtDSA(int enableExtDSA) throws IOException {
-        this.enableExtDSA = enableExtDSA;
+    public void setEnableExtDsa(int enableExtDsa) throws IOException {
+        this.enableExtDsa = enableExtDsa;
         saveConfig();
     }
 
