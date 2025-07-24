@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         multidrawModeOptions.add(getString(R.string.option_multidraw_mode_drawelements));
         multidrawModeOptions.add(getString(R.string.option_multidraw_mode_compute));
 	multidrawModeOptions.add(getString(R.string.option_multidraw_mode_deepseek_one));
+	multidrawModeOptions.add(getString(R.string.option_multidraw_mode_deepseek_two));
         ArrayAdapter<String> multidrawModeAdapter = new ArrayAdapter<>(this, R.layout.spinner, multidrawModeOptions);
         binding.spinnerMultidrawMode.setAdapter(multidrawModeAdapter);
 
