@@ -37,6 +37,7 @@
     <string name="option_multidraw_mode_drawelements">强制使用 绘画元素 方案模拟</string>
     <string name="option_multidraw_mode_compute">尽量使用 打电动 方案模拟 (实验性)</string>
     <string name="option_multidraw_mode_deepseek_one">尽量使用 DeepSuck 写的方案一模拟</string>
+    <string name="option_multidraw_mode_deepseek_two">尽量使用 DeepSuck 写的方案二模拟</string>
 
     <string name="option_angle_clear_workaround">ANGLE Depth Clear 修复方案</string>
     <string name="option_angle_clear_workaround_disable">特么的我没用上angle</string>
