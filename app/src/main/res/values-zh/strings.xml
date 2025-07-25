@@ -43,7 +43,7 @@
     <string name="option_angle_clear_workaround_disable">特么的我没用上angle</string>
     <string name="option_angle_clear_workaround_enable_1">你就想用上了</string>
 
-    <string name="option_ext_gl43">启用不完整的 OpenGL4…3456扩展</string>
+    <string name="option_ext_gl43">启用不完整的 OpenGL43扩展</string>
     <string name="option_ext_cs">启用五马分尸的 ARB_compute_shader 扩展</string>
     <string name="option_ext_timer_query">将推荐的 timer_query 扩展打入地牢♂</string>
     <string name="option_ext_dsa">将AI写的沟糟 dsa 扩展打开</string>
