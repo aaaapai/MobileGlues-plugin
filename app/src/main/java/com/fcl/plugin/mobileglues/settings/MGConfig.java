@@ -25,7 +25,6 @@ public class MGConfig {
     private int enableNoError;
     private int enableExtGL43;
     private int enableExtTimerQuery;
-    private int enableExtDsa;
     private int enableExtComputeShader;
     private int enableExtDirectStateAccess;
     private int maxGlslCacheSize;
