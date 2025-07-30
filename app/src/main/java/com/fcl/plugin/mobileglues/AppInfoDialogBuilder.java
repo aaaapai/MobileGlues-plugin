@@ -22,6 +22,6 @@ public class AppInfoDialogBuilder extends MaterialAlertDialogBuilder {
         setTitle(R.string.dialog_info);
         setView(view);
         setPositiveButton(R.string.dialog_positive, null);
-        setNeutralButton(R.string.dialog_github, (dialog, id) -> context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MobileGL-Dev/MobileGlues-release"))));
+        setNeutralButton(R.string.dialog_github, (dialog, id) -> context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/aaaapai/MobileGlues"))));
     }
 }
