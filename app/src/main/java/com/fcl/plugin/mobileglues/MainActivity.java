@@ -435,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setSelection(config.getAngleDepthClearFixMode());
             binding.switchExtGl43.setChecked(config.getEnableExtGL43() == 1);
             binding.switchExtTimerQuery.setChecked(config.getEnableExtTimerQuery() == 0);
-            binding.switchExtDirectStateAccess.setChecked(config.getEnableExtDirectStateAccess() == 0);
+            binding.switchExtDirectStateAccess.setChecked(config.getEnableExtDirectStateAccess() == 1);
             binding.switchExtCs.setChecked(config.getEnableExtComputeShader() == 1);
             setCustomGLVersionSpinnerSelectionByGLVersion(config.getCustomGLVersion());
 
@@ -665,7 +665,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 try {
                                     config.setCustomGLVersion(newValue);
                                 } catch (IOException e) {
-                                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -693,7 +693,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     config.setCustomGLVersion(newValue);
                 }
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
