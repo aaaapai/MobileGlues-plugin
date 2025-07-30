@@ -39,6 +39,8 @@
     <string name="option_multidraw_mode_multidraw_indirect">Prefer MultiDraw Indirect</string>
     <string name="option_multidraw_mode_drawelements">Force DrawElements</string>
     <string name="option_multidraw_mode_compute">Prefer Compute (experimental)</string>
+    <string name="option_multidraw_mode_deepseek_one">Prefer DeepSeek1 (experimental)</string>
+    <string name="option_multidraw_mode_deepseek_two">Prefer DeepSeek2 (experimental)</string>
 
     <string name="option_angle_clear_workaround">ANGLE Depth Clear Workaround</string>
     <string name="option_angle_clear_workaround_disable">Disable</string>
@@ -69,6 +71,7 @@
     <string name="dialog_title_warning">Warning</string>
     <string name="warning_ext_gl43_enable">Enabling the incomplete OpenGL43 extension may cause issues with some shaders and mods. Are you sure you want to continue?</string>
     <string name="warning_ext_cs_enable">Enabling the incomplete ARB_compute_shader extension may cause issues with some shaders and mods. Are you sure you want to continue?</string>
+    <string name="warning_ext_dsa_enable">Enabling the incomplete DSA extension may cause issues with some games, shaders and mods. Are you sure you want to be f__ked?</string>
     <string name="warning_adreno_740_angle">Enabling ANGLE on Adreno 740 devices is highly likely to cause severe rendering issues. Are you sure you want to continue?</string>
     <string name="warning_enabling_angle_clear_workaround">Enabling the ANGLE Depth Clear Workaround fixes the issue of the handheld items being obscured in vanilla Minecraft 1.21.5+, but may cause performance degradation. Are you sure you want to continue?</string>
 

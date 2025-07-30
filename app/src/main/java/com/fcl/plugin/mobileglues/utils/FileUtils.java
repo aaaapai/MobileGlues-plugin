@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues.utils;
+package com.fcl.plugin.mobileglues.ap.utils;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -26,7 +26,7 @@ import java.util.Objects;
 import androidx.documentfile.provider.DocumentFile;
 import android.provider.DocumentsContract;
 
-import com.fcl.plugin.mobileglues.MainActivity;
+import com.fcl.plugin.mobileglues.ap.MainActivity;
 
 public class FileUtils {
     public static String readText(Context context, Uri uri) throws IOException {
@@ -113,7 +113,7 @@ public class FileUtils {
 	
 	private void deleteAppFiles() {
 		Uri mgDirUri = MainActivity.MGDirectoryUri;
-		File mgDir = new File(Environment.getExternalStorageDirectory(), "MG");
+		File mgDir = new File(Environment.getExternalStorageDirectory(), "MG_AP");
 		File config = new File(mgDir, "config.json");
 		File cache = new File(mgDir, "glsl_cache.tmp");
 		File log   = new File(mgDir, "latest.log");

@@ -1,6 +1,6 @@
-package com.fcl.plugin.mobileglues.settings;
+package com.fcl.plugin.mobileglues.ap.settings;
 
-import static com.fcl.plugin.mobileglues.MainActivity.MainActivityContext;
+import static com.fcl.plugin.mobileglues.ap.MainActivity.MainActivityContext;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,9 +8,9 @@ import android.os.Build;
 import android.provider.DocumentsContract;
 import android.util.Log;
 
-import com.fcl.plugin.mobileglues.MainActivity;
-import com.fcl.plugin.mobileglues.utils.Constants;
-import com.fcl.plugin.mobileglues.utils.FileUtils;
+import com.fcl.plugin.mobileglues.ap.MainActivity;
+import com.fcl.plugin.mobileglues.ap.utils.Constants;
+import com.fcl.plugin.mobileglues.ap.utils.FileUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -199,7 +199,7 @@ public class MGConfig {
         try {
             save(context);
         } catch (RuntimeException | IOException e) {
-            Log.e("MG", "Failed to save the config file: " + e.getMessage());
+            Log.e("MG_AP", "Failed to save the config file: " + e.getMessage());
         }
     }
 
@@ -221,7 +221,7 @@ public class MGConfig {
 				FileUtils.deleteFileViaSAF(context, MainActivity.MGDirectoryUri, "config.json");
 			}
 		} else {
-			File configFile = new File(Environment.getExternalStorageDirectory(), "MG/config.json");
+			File configFile = new File(Environment.getExternalStorageDirectory(), "MG_AP/config.json");
 			if (configFile.exists()) {
 				FileUtils.deleteFile(configFile);
 			}

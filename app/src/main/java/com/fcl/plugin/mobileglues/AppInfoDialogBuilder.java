@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues;
+package com.fcl.plugin.mobileglues.ap;
 
 import android.content.Context;
 import android.content.Intent;
