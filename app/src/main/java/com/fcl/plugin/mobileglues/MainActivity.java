@@ -404,7 +404,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerMultidrawMode.setOnItemSelectedListener(null);
             binding.spinnerCustomGlVersion.setOnItemSelectedListener(null);
             binding.angleClearWorkaround.setOnItemSelectedListener(null);
-            binding.switchExtGl43.setOnCheckedChangeListener(null);
             binding.switchExtCs.setOnCheckedChangeListener(null);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(null);
             binding.switchExtDirectStateAccess.setOnCheckedChangeListener(null);
@@ -426,7 +425,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerNoError.setSelection(config.getEnableNoError());
             binding.spinnerMultidrawMode.setSelection(config.getMultidrawMode());
             binding.angleClearWorkaround.setSelection(config.getAngleDepthClearFixMode());
-            binding.switchExtGl43.setChecked(config.getEnableExtGL43() == 1);
             binding.switchExtTimerQuery.setChecked(config.getEnableExtTimerQuery() == 0);
             binding.switchExtDirectStateAccess.setChecked(config.getEnableExtDirectStateAccess() == 1);
             binding.switchExtCs.setChecked(config.getEnableExtComputeShader() == 1);
@@ -437,7 +435,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerMultidrawMode.setOnItemSelectedListener(this);
             binding.spinnerCustomGlVersion.setOnItemSelectedListener(this);
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
-            binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
 	    binding.switchExtDirectStateAccess.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
@@ -486,8 +483,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerMultidrawMode.setOnItemSelectedListener(this);
             binding.spinnerCustomGlVersion.setOnItemSelectedListener(this);
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
-            binding.switchExtGl43.setOnCheckedChangeListener(this);
-            binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
+	    binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
             binding.switchExtDirectStateAccess.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             isSpinnerInitialized = true;
