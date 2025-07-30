@@ -735,32 +735,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onCheckedChanged(final CompoundButton compoundButton, final boolean isChecked) {
-        if (compoundButton == binding.switchExtGl43 && config != null) {
-            if (isChecked) {
-                new MaterialAlertDialogBuilder(MainActivity.this)
-                        .setTitle(getString(R.string.dialog_title_warning))
-                        .setMessage(getString(R.string.warning_ext_gl43_enable))
-                        .setCancelable(false)
-                        .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
-                        .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
-                            try {
-                                config.setEnableExtGL43(1);
-                            } catch (IOException e) {
-                                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
-                                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtGl43.setChecked(false))
-                        .show();
-            } else {
-                try {
-                    config.setEnableExtGL43(0);
-                } catch (IOException e) {
-                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
-                    Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
         if (compoundButton == binding.switchExtCs && config != null) {
             if (isChecked) {
                 new MaterialAlertDialogBuilder(MainActivity.this)
