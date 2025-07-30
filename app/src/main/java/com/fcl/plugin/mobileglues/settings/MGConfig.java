@@ -23,7 +23,6 @@ import android.os.Environment;
 public class MGConfig {
     private int enableANGLE;
     private int enableNoError;
-    private int enableExtGL43;
     private int enableExtTimerQuery;
     private int enableExtComputeShader;
     private int enableExtDirectStateAccess;
@@ -32,12 +31,11 @@ public class MGConfig {
     private int angleDepthClearFixMode;
     private int customGLVersion;
 
-    public MGConfig(int enableANGLE, int enableNoError, int enableExtGL43, 
-                    int enableExtTimerQuery, int enableExtComputeShader, int enableExtDirectStateAccess, 
+    public MGConfig(int enableANGLE, int enableNoError, int enableExtTimerQuery, 
+		    int enableExtComputeShader, int enableExtDirectStateAccess, 
                     int maxGlslCacheSize, int multidrawMode, int angleDepthClearFixMode, int customGLVersion) {
         this.enableANGLE = enableANGLE;
         this.enableNoError = enableNoError;
-        this.enableExtGL43 = enableExtGL43;
         this.enableExtTimerQuery = enableExtTimerQuery;
         this.enableExtComputeShader = enableExtComputeShader;
         this.enableExtDirectStateAccess = enableExtDirectStateAccess;
@@ -114,15 +112,6 @@ public class MGConfig {
 
     public void setEnableExtDirectStateAccess(int enableExtDirectStateAccess) throws IOException {
         this.enableExtDirectStateAccess = enableExtDirectStateAccess;
-        saveConfig();
-    }
-
-    public int getEnableExtGL43() {
-        return enableExtGL43;
-    }
-
-    public void setEnableExtGL43(int enableExtGL43) throws IOException {
-        this.enableExtGL43 = enableExtGL43;
         saveConfig();
     }
 
