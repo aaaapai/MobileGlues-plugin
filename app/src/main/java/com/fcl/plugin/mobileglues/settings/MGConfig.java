@@ -40,7 +40,6 @@ public class MGConfig {
         this.enableNoError = enableNoError;
         this.enableExtGL43 = enableExtGL43;
         this.enableExtTimerQuery = enableExtTimerQuery;
-	this.enableExtDsa = enableExtDsa;
         this.enableExtComputeShader = enableExtComputeShader;
         this.enableExtDirectStateAccess = enableExtDirectStateAccess;
         this.maxGlslCacheSize = maxGlslCacheSize;
@@ -125,15 +124,6 @@ public class MGConfig {
 
     public void setEnableExtGL43(int enableExtGL43) throws IOException {
         this.enableExtGL43 = enableExtGL43;
-        saveConfig();
-    }
-
-    public int getEnableExtDsa() {
-        return enableExtDsa;
-    }
-
-    public void setEnableExtDsa(int enableExtDsa) throws IOException {
-        this.enableExtDsa = enableExtDsa;
         saveConfig();
     }
 
