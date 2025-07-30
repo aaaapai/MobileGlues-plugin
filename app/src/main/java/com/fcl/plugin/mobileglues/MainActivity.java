@@ -79,6 +79,9 @@ import androidx.annotation.StringRes;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
     private static final Map<String, Integer> GL_VERSION_MAP = new LinkedHashMap<String, Integer>() {{
         put("Disabled", 0);
+	put("OpenGL 9.1", 91);
+	put("OpenGL 8.1", 81);
+	put("OpenGL 7.2", 72);
         put("OpenGL 4.6", 46);
         put("OpenGL 4.5", 45);
         put("OpenGL 4.4", 44);
@@ -86,8 +89,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         put("OpenGL 4.2", 42);
         put("OpenGL 4.1", 41);
         put("OpenGL 4.0", 40);
+	put("OpenGL 3.8", 38);
         put("OpenGL 3.3", 33);
         put("OpenGL 3.2", 32);
+	put("OpenGL 3.1", 31);
+	put("OpenGL 3.0", 30);
+	put("OpenGL 2.1", 21);
+	put("OpenGL 2.0", 20);
+	put("OpenGL 1.5", 15);
+	put("OpenGL 1.4", 14);
+	put("OpenGL 1.3", 13);
+	put("OpenGL 1.2", 12);
+	put("OpenGL 1.1", 11);
+	put("OpenGL 1.0", 10);
+	put("OpenGL 0.0", 00);
     }};
 
     private static final int REQUEST_CODE_SAF = 2000;
