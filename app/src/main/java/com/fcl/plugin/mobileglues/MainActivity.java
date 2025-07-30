@@ -340,13 +340,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
             } else {
-                File file = new File(Environment.getExternalStorageDirectory(), "MG/" + fileName);
+                File file = new File(Environment.getExternalStorageDirectory(), "MG_AP/" + fileName);
                 if (file.exists()) {
                     FileUtils.deleteFile(file);
                 }
             }
         } catch (Exception e) {
-            Log.w("MG", "删除文件失败: " + fileName, e);
+            Log.w("MG_AP", "删除文件失败: " + fileName, e);
         }
     }
 
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
             } else {
-                File mgDir = new File(Environment.getExternalStorageDirectory(), "MG");
+                File mgDir = new File(Environment.getExternalStorageDirectory(), "MG_AP");
                 if (mgDir.exists() && mgDir.isDirectory()) {
                     File[] files = mgDir.listFiles();
                     if (files != null && files.length == 0) {
@@ -369,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         } catch (Exception e) {
-            Log.w("MG", "删除目录失败", e);
+            Log.w("MG_AP", "删除目录失败", e);
         }
     }
 
@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         } catch (Exception e) {
-            Logger.getLogger("MG").log(Level.WARNING, "移除 SAF 权限失败", e);
+            Logger.getLogger("MG_AP").log(Level.WARNING, "移除 SAF 权限失败", e);
         }
     }
 
@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
             binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
-	    binding.switchExtDsa.setOnCheckedChangeListener(this);
+	    binding.switchExtDirectStateAccess.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             binding.inputMaxGlslCacheSize.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -789,14 +789,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (compoundButton == binding.switchExtTimerQuery && config != null) {
             try {
                 config.setEnableExtTimerQuery(isChecked ? 0 : 1); // disable (ui) -> enable (json)
-            } catch (IOException e) {
-                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
-                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
-            }
-        }
-        if (compoundButton == binding.switchExtDirectStateAccess && config != null) {
-            try {
-                config.setEnableExtDirectStateAccess(isChecked ? 0 : 1); // disable (ui) -> enable (json)
             } catch (IOException e) {
                 Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
