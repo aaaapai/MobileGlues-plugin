@@ -4,27 +4,30 @@ plugins {
 }
 
 android {
-    namespace = "com.fcl.plugin.mobileglues"
-    compileSdk = 35
-
-    ndkVersion = "27.1.12297006"
+    namespace = "com.fcl.plugin.mobileglues.ap"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.fcl.plugin.mobileglues"
-        minSdk = 26
-        targetSdk = 35
+        applicationId = "com.fcl.plugin.mobileglues.ap"
+        minSdk = 21
+        targetSdk = 36
         versionCode = 1271
-        versionName = "1.2.7 - hotfix1"
+        versionName = "1.21.7 - hotfix1"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 
     signingConfigs {
         create("release") {
-            storeFile = file("../keystore.jks")
-            storePassword = System.getenv("SIGNING_STORE_PASSWORD") ?: project.findProperty("SIGNING_STORE_PASSWORD") as String?
-            keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: project.findProperty("SIGNING_KEY_ALIAS") as String?
-            keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: project.findProperty("SIGNING_KEY_PASSWORD") as String?
+            storeFile = file("../debug-key.jks")
+            storePassword = "FCL-Debug"
+            keyAlias = "FCL-Debug"
+            keyPassword = "FCL-Debug"
         }
     }
 
@@ -39,9 +42,9 @@ android {
         }
 
         configureEach {
-            resValue("string","app_name","MobileGlues")
+            resValue("string","app_name","MobileG鹿es")
 
-            manifestPlaceholders["des"] = "MobileGlues (OpenGL 4.0, 1.17+)"
+            manifestPlaceholders["des"] = "MobileG鹿es_ap (OpenGL 4.0, 1.17.0.0.0.0++)"
             manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libEGL.so"
 
             manifestPlaceholders["minMCVer"] = "1.17"
@@ -49,7 +52,7 @@ android {
 
             manifestPlaceholders["boatEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
+                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so,libshaderc.so")
             }.run {
                 var env = ""
                 forEach { (key, value) ->
@@ -59,8 +62,8 @@ android {
             }
             manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
-                put("POJAV_RENDERER", "opengles3")
+                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so,libshaderc.so")
+                put("POJAV_RENDERER", "opengles3_MobileGlues_ap")
             }.run {
                 var env = ""
                 forEach { (key, value) ->
@@ -72,16 +75,19 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        dataBinding = true
     }
+}
+
+kotlin {
+    jvmToolchain(21) // 自动同步 JDK 工具链（编译、测试、运行均使用 JDK 21）
 }
 
 dependencies {
@@ -90,5 +96,4 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.google.material)
-    implementation(project(":MobileGlues"))
 }
