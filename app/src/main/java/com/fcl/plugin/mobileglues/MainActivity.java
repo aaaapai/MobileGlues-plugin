@@ -803,7 +803,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (isChecked) {
                 new MaterialAlertDialogBuilder(MainActivity.this)
                         .setTitle(getString(R.string.dialog_title_warning))
-                        .setMessage(getString(R.string.warning_ext_dsa_enable)).setCancelable(false)
+                        .setMessage(getString(R.string.warning_ext_direct_state_access_enable)).setCancelable(false)
                         .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
                         .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
                             try {
