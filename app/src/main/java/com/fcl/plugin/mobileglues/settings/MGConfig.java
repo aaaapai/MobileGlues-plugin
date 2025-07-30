@@ -12,6 +12,8 @@ import com.fcl.plugin.mobileglues.ap.MainActivity;
 import com.fcl.plugin.mobileglues.ap.utils.Constants;
 import com.fcl.plugin.mobileglues.ap.utils.FileUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,46 +27,59 @@ public class MGConfig {
     private int enableExtTimerQuery;
     private int enableExtDsa;
     private int enableExtComputeShader;
+    private int enableExtDirectStateAccess;
     private int maxGlslCacheSize;
     private int multidrawMode;
     private int angleDepthClearFixMode;
+    private int customGLVersion;
 
-    public MGConfig(int enableANGLE, int enableNoError, int enableExtGL43, int enableExtTimerQuery, int enableExtDsa, int enableExtComputeShader, int maxGlslCacheSize, int multidrawMode, int angleDepthClearFixMode) {
+    public MGConfig(int enableANGLE, int enableNoError, int enableExtGL43, 
+                    int enableExtTimerQuery, int enableExtComputeShader, int enableExtDirectStateAccess, 
+                    int maxGlslCacheSize, int multidrawMode, int angleDepthClearFixMode, int customGLVersion) {
         this.enableANGLE = enableANGLE;
         this.enableNoError = enableNoError;
         this.enableExtGL43 = enableExtGL43;
         this.enableExtTimerQuery = enableExtTimerQuery;
-	this.enableExtDsa = enableExtDsa;
         this.enableExtComputeShader = enableExtComputeShader;
+        this.enableExtDirectStateAccess = enableExtDirectStateAccess;
         this.maxGlslCacheSize = maxGlslCacheSize;
         this.multidrawMode = multidrawMode;
         this.angleDepthClearFixMode = angleDepthClearFixMode;
+        this.customGLVersion = customGLVersion;
     }
 
     public static MGConfig loadConfig(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (MainActivity.MGDirectoryUri != null) {
-                try {
-                    Uri configUri = DocumentsContract.buildDocumentUriUsingTree(MainActivity.MGDirectoryUri,
-                            DocumentsContract.getTreeDocumentId(MainActivity.MGDirectoryUri) + "/config.json");
-                    String configStr = FileUtils.readText(context, configUri);
-                    return new Gson().fromJson(configStr, MGConfig.class);
-                } catch (RuntimeException | IOException e) {
-                    return null;
-                }
+        String configStr;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (MainActivity.MGDirectoryUri == null) return null;
+                Uri configUri = DocumentsContract.buildDocumentUriUsingTree(
+                        MainActivity.MGDirectoryUri,
+                        DocumentsContract.getTreeDocumentId(MainActivity.MGDirectoryUri) + "/config.json");
+                configStr = FileUtils.readText(context, configUri);
+            } else {
+                File configFile = new File(Constants.CONFIG_FILE_PATH);
+                if (!Files.exists(configFile.toPath())) return null;
+                configStr = FileUtils.readText(configFile);
             }
+        } catch (IOException | RuntimeException e) {
             return null;
-        } else {
-            if (!Files.exists(new File(Constants.CONFIG_FILE_PATH).toPath())) {
-                return null;
-            }
-            try {
-                String configStr = FileUtils.readText(new File(Constants.CONFIG_FILE_PATH));
-                return new Gson().fromJson(configStr, MGConfig.class);
-            } catch (RuntimeException | IOException e) {
-                return null;
-            }
         }
+
+        MGConfig config = new Gson().fromJson(configStr, MGConfig.class);
+
+        try {
+            JsonObject obj = JsonParser.parseString(configStr).getAsJsonObject();
+            if (!obj.has("enableExtTimerQuery")) {
+                config.enableExtTimerQuery = 1;
+            }
+            if (!obj.has("enableExtDirectStateAccess")) {
+                config.enableExtDirectStateAccess = 1;
+            }
+        } catch (Exception ignored) {
+        }
+
+        return config;
     }
 
     public int getEnableANGLE() {
@@ -93,6 +108,15 @@ public class MGConfig {
         this.enableExtTimerQuery = enableExtTimerQuery;
         saveConfig();
     }
+    
+    public int getEnableExtDirectStateAccess() {
+        return enableExtDirectStateAccess;
+    }
+
+    public void setEnableExtDirectStateAccess(int enableExtDirectStateAccess) throws IOException {
+        this.enableExtDirectStateAccess = enableExtDirectStateAccess;
+        saveConfig();
+    }
 
     public int getEnableExtGL43() {
         return enableExtGL43;
@@ -100,15 +124,6 @@ public class MGConfig {
 
     public void setEnableExtGL43(int enableExtGL43) throws IOException {
         this.enableExtGL43 = enableExtGL43;
-        saveConfig();
-    }
-
-    public int getEnableExtDsa() {
-        return enableExtDsa;
-    }
-
-    public void setEnableExtDsa(int enableExtDsa) throws IOException {
-        this.enableExtDsa = enableExtDsa;
         saveConfig();
     }
 
@@ -149,6 +164,15 @@ public class MGConfig {
 
     public void setAngleDepthClearFixMode(int angleDepthClearFixMode) throws IOException {
         this.angleDepthClearFixMode = angleDepthClearFixMode;
+        saveConfig();
+    }
+
+    public int getCustomGLVersion() {
+        return customGLVersion;
+    }
+
+    public void setCustomGLVersion(int customGLVersion) throws IOException {
+        this.customGLVersion = customGLVersion;
         saveConfig();
     }
 

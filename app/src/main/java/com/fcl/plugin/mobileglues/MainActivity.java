@@ -47,6 +47,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,6 +77,34 @@ import android.os.Looper;
 import androidx.annotation.StringRes;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
+    private static final Map<String, Integer> GL_VERSION_MAP = new LinkedHashMap<String, Integer>() {{
+        put("Disabled", 0);
+	put("OpenGL 9.1", 91);
+	put("OpenGL 8.1", 81);
+	put("OpenGL 7.2", 72);
+        put("OpenGL 4.6", 46);
+        put("OpenGL 4.5", 45);
+        put("OpenGL 4.4", 44);
+        put("OpenGL 4.3", 43);
+        put("OpenGL 4.2", 42);
+        put("OpenGL 4.1", 41);
+        put("OpenGL 4.0", 40);
+	put("OpenGL 3.8", 38);
+        put("OpenGL 3.3", 33);
+        put("OpenGL 3.2", 32);
+	put("OpenGL 3.1", 31);
+	put("OpenGL 3.0", 30);
+	put("OpenGL 2.1", 21);
+	put("OpenGL 2.0", 20);
+	put("OpenGL 1.5", 15);
+	put("OpenGL 1.4", 14);
+	put("OpenGL 1.3", 13);
+	put("OpenGL 1.2", 12);
+	put("OpenGL 1.1", 11);
+	put("OpenGL 1.0", 10);
+	put("OpenGL 0.0", 00);
+    }};
+
     private static final int REQUEST_CODE_SAF = 2000;
     public static Uri MGDirectoryUri;
     public static Context MainActivityContext;
@@ -124,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	multidrawModeOptions.add(getString(R.string.option_multidraw_mode_deepseek_two));
         ArrayAdapter<String> multidrawModeAdapter = new ArrayAdapter<>(this, R.layout.spinner, multidrawModeOptions);
         binding.spinnerMultidrawMode.setAdapter(multidrawModeAdapter);
+        
+        addCustomGLVersionOptions();
 
         ArrayList<String> angleClearWorkaroundOptions = new ArrayList<>();
         angleClearWorkaroundOptions.add(getString(R.string.option_angle_clear_workaround_disable));
@@ -377,15 +409,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerAngle.setOnItemSelectedListener(null);
             binding.spinnerNoError.setOnItemSelectedListener(null);
             binding.spinnerMultidrawMode.setOnItemSelectedListener(null);
+            binding.spinnerCustomGlVersion.setOnItemSelectedListener(null);
             binding.angleClearWorkaround.setOnItemSelectedListener(null);
             binding.switchExtGl43.setOnCheckedChangeListener(null);
             binding.switchExtCs.setOnCheckedChangeListener(null);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(null);
-	    binding.switchExtDsa.setOnCheckedChangeListener(null);
+            binding.switchExtDirectStateAccess.setOnCheckedChangeListener(null);
             config = MGConfig.loadConfig(this);
 
             if (config == null) {
-                config = new MGConfig(1, 0, 0, 1, 0, 0, 114514, 0, 0);
+                config = new MGConfig(1, 0, 0, 1, 0, 0, 32, 0, 0, 0);
             }
             if (config.getEnableANGLE() > 3 || config.getEnableANGLE() < 0)
                 config.setEnableANGLE(0);
@@ -402,11 +435,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.angleClearWorkaround.setSelection(config.getAngleDepthClearFixMode());
             binding.switchExtGl43.setChecked(config.getEnableExtGL43() == 1);
             binding.switchExtTimerQuery.setChecked(config.getEnableExtTimerQuery() == 0);
-	    binding.switchExtDsa.setChecked(config.getEnableExtDsa() == 1);
+            binding.switchExtDirectStateAccess.setChecked(config.getEnableExtDirectStateAccess() == 1);
             binding.switchExtCs.setChecked(config.getEnableExtComputeShader() == 1);
+            setCustomGLVersionSpinnerSelectionByGLVersion(config.getCustomGLVersion());
+
             binding.spinnerAngle.setOnItemSelectedListener(this);
             binding.spinnerNoError.setOnItemSelectedListener(this);
             binding.spinnerMultidrawMode.setOnItemSelectedListener(this);
+            binding.spinnerCustomGlVersion.setOnItemSelectedListener(this);
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
             binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
@@ -455,10 +491,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerAngle.setOnItemSelectedListener(this);
             binding.spinnerNoError.setOnItemSelectedListener(this);
             binding.spinnerMultidrawMode.setOnItemSelectedListener(this);
+            binding.spinnerCustomGlVersion.setOnItemSelectedListener(this);
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
             binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
-	    binding.switchExtDsa.setOnCheckedChangeListener(this);
+            binding.switchExtDirectStateAccess.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             isSpinnerInitialized = true;
 
@@ -600,6 +637,67 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
+        if (adapterView == binding.spinnerCustomGlVersion && config != null) {
+            int previous = config.getCustomGLVersion();
+            int newValue = getGLVersionBySpinnerIndex(i);
+
+            if (newValue == previous) {
+                return;
+            }
+
+            try {
+                if (previous == 0) {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                    builder.setTitle(getString(R.string.dialog_title_warning))
+                            .setMessage(getText(R.string.warning_enabling_custom_gl_version))
+                            .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> {
+                                isSpinnerInitialized = false;
+                                binding.spinnerCustomGlVersion.setSelection(getSpinnerIndexByGLVersion(previous));
+                                isSpinnerInitialized = true;
+                            });
+
+                    androidx.appcompat.app.AlertDialog dialog = builder.create();
+
+                    final int cooldownSeconds = 15;
+                    final int[] remainingSeconds = {cooldownSeconds};
+
+                    dialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), (dialogInterface, which) -> {
+                                try {
+                                    config.setCustomGLVersion(newValue);
+                                } catch (IOException e) {
+                                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                    Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    dialog.setOnShowListener(dialogInterface -> {
+                        Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                        positiveButton.setText(getString(R.string.ok_with_countdown, remainingSeconds[0]));
+                        positiveButton.setEnabled(false);
+
+                        new CountDownTimer(cooldownSeconds * 1000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                remainingSeconds[0] = (int) (millisUntilFinished / 1000);
+                                positiveButton.setText(getString(R.string.ok_with_countdown, remainingSeconds[0]));
+                            }
+                            public void onFinish() {
+                                positiveButton.setText(R.string.ok);
+                                positiveButton.setTextColor(ContextCompat.getColor(MainActivityContext, android.R.color.holo_red_dark));
+                                positiveButton.setEnabled(true);
+                            }
+                        }.start();
+                    });
+                    dialog.setCancelable(false);
+                    dialog.show();
+                } else {
+                    config.setCustomGLVersion(newValue);
+                }
+            } catch (IOException e) {
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+            }
+        }
+        
         if (adapterView == binding.angleClearWorkaround && config != null) {
             try {
                 int previous = config.getAngleDepthClearFixMode();
@@ -701,7 +799,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
 			}
         }
-	if (compoundButton == binding.switchExtDsa && config != null) {
+	if (compoundButton == binding.switchExtDirectStateAccess && config != null) {
             if (isChecked) {
                 new MaterialAlertDialogBuilder(MainActivity.this)
                         .setTitle(getString(R.string.dialog_title_warning))
@@ -829,6 +927,66 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private boolean isAdreno740() {
         String renderer = getGPUName();
         return renderer != null && renderer.toLowerCase().contains("adreno") && renderer.contains("740");
+    }
+
+    private void addCustomGLVersionOptions() {
+        ArrayList<String> glVersionOptions = new ArrayList<>(GL_VERSION_MAP.keySet());
+
+        ArrayAdapter<String> glVersionAdapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner,
+                glVersionOptions
+        );
+
+        binding.spinnerCustomGlVersion.setAdapter(glVersionAdapter);
+    }
+
+    private void setCustomGLVersionSpinnerSelectionByGLVersion(int glVersion) {
+        String targetDisplay = "Disabled"; 
+
+        for (Map.Entry<String, Integer> entry : GL_VERSION_MAP.entrySet()) {
+            if (entry.getValue() == glVersion) {
+                targetDisplay = entry.getKey();
+                break;
+            }
+        }
+
+        // noinspection unchecked
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>)binding.spinnerCustomGlVersion.getAdapter(); 
+        int position = adapter.getPosition(targetDisplay);
+
+        binding.spinnerCustomGlVersion.setSelection(Math.max(position, 0));
+    }
+
+    private void setCustomGLVersionBySpinnerIndex(int index) throws IOException {
+        if (config == null || !isSpinnerInitialized) return;
+
+        String selected = (String) binding.spinnerCustomGlVersion.getItemAtPosition(index);
+
+        Integer glVersionValue = GL_VERSION_MAP.get(selected);
+        if (glVersionValue == null) {
+            glVersionValue = 0;
+        }
+
+        config.setCustomGLVersion(glVersionValue);
+    }
+
+    private int getGLVersionBySpinnerIndex(int index) {
+        String selected = (String) binding.spinnerCustomGlVersion.getItemAtPosition(index);
+        Integer glVersionValue = GL_VERSION_MAP.get(selected);
+        return glVersionValue != null ? glVersionValue : 0;
+    }
+
+    private int getSpinnerIndexByGLVersion(int glVersion) {
+        String targetDisplay = "Disabled";
+        for (Map.Entry<String, Integer> entry : GL_VERSION_MAP.entrySet()) {
+            if (entry.getValue() == glVersion) {
+                targetDisplay = entry.getKey();
+                break;
+            }
+        }
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) binding.spinnerCustomGlVersion.getAdapter();
+        return adapter.getPosition(targetDisplay);
     }
 
 }
