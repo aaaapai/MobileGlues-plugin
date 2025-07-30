@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             config = MGConfig.loadConfig(this);
 
             if (config == null) {
-                config = new MGConfig(1, 0, 0, 1, 0, 0, 32, 0, 0, 0);
+                config = new MGConfig(1, 0, 1, 1, 0, 114514, 0, 0, 0);
             }
             if (config.getEnableANGLE() > 3 || config.getEnableANGLE() < 0)
                 config.setEnableANGLE(0);
@@ -550,7 +550,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             MGDirectoryUri = treeUri;
                             MGConfig config = MGConfig.loadConfig(this);
                             if (config == null)
-                                config = new MGConfig(1, 0, 0, 1, 0, 1, 32, 0, 0, 0);
+                                config = new MGConfig(1, 0, 1, 1, 0, 114514, 0, 0, 0);
                             config.saveConfig(this);
                             showOptions();
                         }
@@ -772,17 +772,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
                         .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
                             try {
-                                config.setEnableExtDsa(1);
+                                config.setEnableExtDirectStateAccess(1);
                             } catch (IOException e) {
                                 Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtDsa.setChecked(false))
+                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtDirectStateAccess.setChecked(false))
                         .show();
             } else {
                 try {
-                    config.setEnableExtDsa(0);
+                    config.setEnableExtDirectStateAccess(0);
                 } catch (IOException e) {
                     Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
