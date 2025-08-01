@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues;
+package com.fcl.plugin.mobileglues.ap;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -47,12 +47,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.documentfile.provider.DocumentFile;
 
-import com.fcl.plugin.mobileglues.databinding.ActivityMainBinding;
-import com.fcl.plugin.mobileglues.settings.FolderPermissionManager;
-import com.fcl.plugin.mobileglues.settings.MGConfig;
-import com.fcl.plugin.mobileglues.utils.Constants;
-import com.fcl.plugin.mobileglues.utils.FileUtils;
-import com.fcl.plugin.mobileglues.utils.ResultListener;
+import com.fcl.plugin.mobileglues.ap.databinding.ActivityMainBinding;
+import com.fcl.plugin.mobileglues.ap.settings.FolderPermissionManager;
+import com.fcl.plugin.mobileglues.ap.settings.MGConfig;
+import com.fcl.plugin.mobileglues.ap.utils.Constants;
+import com.fcl.plugin.mobileglues.ap.utils.FileUtils;
+import com.fcl.plugin.mobileglues.ap.utils.ResultListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
@@ -67,6 +67,9 @@ import java.util.logging.Logger;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
     private static final Map<String, Integer> GL_VERSION_MAP = new LinkedHashMap<>() {{
         put("Disabled", 0);
+	put("OpenGL 9.1", 91);
+	put("OpenGL 8.1", 81);
+	put("OpenGL 7.2", 72);
         put("OpenGL 4.6", 46);
         put("OpenGL 4.5", 45);
         put("OpenGL 4.4", 44);
@@ -74,8 +77,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         put("OpenGL 4.2", 42);
         put("OpenGL 4.1", 41);
         put("OpenGL 4.0", 40);
+	put("OpenGL 3.8", 38);
         put("OpenGL 3.3", 33);
         put("OpenGL 3.2", 32);
+	put("OpenGL 3.1", 31);
+	put("OpenGL 3.0", 30);
+	put("OpenGL 2.1", 21);
+	put("OpenGL 2.0", 20);
+	put("OpenGL 1.5", 15);
+	put("OpenGL 1.4", 14);
+	put("OpenGL 1.3", 13);
+	put("OpenGL 1.2", 12);
+	put("OpenGL 1.1", 11);
+	put("OpenGL 1.0", 10);
+	put("OpenGL 0.0", 00);
     }};
 
     private static final int REQUEST_CODE_SAF = 2000;
@@ -123,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         multidrawModeOptions.add(getString(R.string.option_multidraw_mode_multidraw_indirect));
         multidrawModeOptions.add(getString(R.string.option_multidraw_mode_drawelements));
         multidrawModeOptions.add(getString(R.string.option_multidraw_mode_compute));
+	multidrawModeOptions.add(getString(R.string.option_multidraw_mode_deepseek_one));
+	multidrawModeOptions.add(getString(R.string.option_multidraw_mode_deepseek_two));
         ArrayAdapter<String> multidrawModeAdapter = new ArrayAdapter<>(this, R.layout.spinner, multidrawModeOptions);
         binding.spinnerMultidrawMode.setAdapter(multidrawModeAdapter);
 
@@ -323,13 +340,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
             } else {
-                File file = new File(Environment.getExternalStorageDirectory(), "MG/" + fileName);
+                File file = new File(Environment.getExternalStorageDirectory(), "MG_AP/" + fileName);
                 if (file.exists()) {
                     FileUtils.deleteFile(file);
                 }
             }
         } catch (Exception e) {
-            Log.w("MG", "删除文件失败: " + fileName, e);
+            Log.w("MG_AP", "删除文件失败: " + fileName, e);
         }
     }
 
@@ -343,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
             } else {
-                File mgDir = new File(Environment.getExternalStorageDirectory(), "MG");
+                File mgDir = new File(Environment.getExternalStorageDirectory(), "MG_AP");
                 if (mgDir.exists() && mgDir.isDirectory()) {
                     File[] files = mgDir.listFiles();
                     if (files != null && files.length == 0) {
@@ -352,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         } catch (Exception e) {
-            Log.w("MG", "删除目录失败", e);
+            Log.w("MG_AP", "删除目录失败", e);
         }
     }
 
@@ -368,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         } catch (Exception e) {
-            Logger.getLogger("MG").log(Level.WARNING, "移除 SAF 权限失败", e);
+            Logger.getLogger("MG_AP").log(Level.WARNING, "移除 SAF 权限失败", e);
         }
     }
 
@@ -387,7 +404,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerMultidrawMode.setOnItemSelectedListener(null);
             binding.spinnerCustomGlVersion.setOnItemSelectedListener(null);
             binding.angleClearWorkaround.setOnItemSelectedListener(null);
-            binding.switchExtGl43.setOnCheckedChangeListener(null);
             binding.switchExtCs.setOnCheckedChangeListener(null);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(null);
             binding.switchExtDirectStateAccess.setOnCheckedChangeListener(null);
@@ -395,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             config = MGConfig.loadConfig(this);
 
             if (config == null) {
-                config = new MGConfig(1, 0, 0, 1, 0, 1, 32, 0, 0, 0, 0);
+                config = new MGConfig(1, 0, 1, 1, 0, 114514, 0, 0, 0, 0);
             }
             if (config.getEnableANGLE() > 3 || config.getEnableANGLE() < 0)
                 config.setEnableANGLE(0);
@@ -410,9 +426,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerNoError.setSelection(config.getEnableNoError());
             binding.spinnerMultidrawMode.setSelection(config.getMultidrawMode());
             binding.angleClearWorkaround.setSelection(config.getAngleDepthClearFixMode());
-            binding.switchExtGl43.setChecked(config.getEnableExtGL43() == 1);
             binding.switchExtTimerQuery.setChecked(config.getEnableExtTimerQuery() == 0);
-            binding.switchExtDirectStateAccess.setChecked(config.getEnableExtDirectStateAccess() == 0);
+            binding.switchExtDirectStateAccess.setChecked(config.getEnableExtDirectStateAccess() == 1);
             binding.switchExtCs.setChecked(config.getEnableExtComputeShader() == 1);
             binding.switchEnableFsr1.setChecked(config.getFsr1Setting() == 1);
             setCustomGLVersionSpinnerSelectionByGLVersion(config.getCustomGLVersion());
@@ -422,8 +437,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerMultidrawMode.setOnItemSelectedListener(this);
             binding.spinnerCustomGlVersion.setOnItemSelectedListener(this);
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
-            binding.switchExtGl43.setOnCheckedChangeListener(this);
             binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
+	    binding.switchExtDirectStateAccess.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             binding.switchEnableFsr1.setOnCheckedChangeListener(this);
             binding.inputMaxGlslCacheSize.addTextChangedListener(new TextWatcher() {
@@ -471,14 +486,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             binding.spinnerMultidrawMode.setOnItemSelectedListener(this);
             binding.spinnerCustomGlVersion.setOnItemSelectedListener(this);
             binding.angleClearWorkaround.setOnItemSelectedListener(this);
-            binding.switchExtGl43.setOnCheckedChangeListener(this);
-            binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
+	    binding.switchExtTimerQuery.setOnCheckedChangeListener(this);
             binding.switchExtDirectStateAccess.setOnCheckedChangeListener(this);
             binding.switchExtCs.setOnCheckedChangeListener(this);
             isSpinnerInitialized = true;
 
         } catch (IOException e) {
-            Logger.getLogger("MG").log(Level.SEVERE, "Failed to load config! Exception: ", e.getCause());
+            Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to load config! Exception: ", e.getCause());
             Toast.makeText(this, getString(R.string.warning_load_failed), Toast.LENGTH_SHORT).show();
         }
     }
@@ -539,7 +553,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             MGDirectoryUri = treeUri;
                             MGConfig config = MGConfig.loadConfig(this);
                             if (config == null)
-                                config = new MGConfig(1, 0, 0, 1, 0, 1, 32, 0, 0, 0, 0);
+                                config = new MGConfig(1, 0, 1, 1, 0, 114514, 0, 0, 0, 0);
                             config.saveConfig(this);
                             showOptions();
                         }
@@ -578,7 +592,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 try {
                                     config.setEnableANGLE(i);
                                 } catch (IOException e) {
-                                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -593,7 +607,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     config.setEnableANGLE(i);
                 }
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -602,7 +616,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             try {
                 config.setEnableNoError(i);
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -611,7 +625,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             try {
                 config.setMultidrawMode(i);
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -644,7 +658,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         try {
                             config.setCustomGLVersion(newValue);
                         } catch (IOException e) {
-                            Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                            Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                             Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -673,7 +687,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     config.setCustomGLVersion(newValue);
                 }
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -692,7 +706,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 try {
                                     config.setAngleDepthClearFixMode(i);
                                 } catch (IOException e) {
-                                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -707,7 +721,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     config.setAngleDepthClearFixMode(i);
                 }
             } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e.getCause());
                 Toast.makeText(this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
@@ -720,32 +734,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onCheckedChanged(final CompoundButton compoundButton, final boolean isChecked) {
-        if (compoundButton == binding.switchExtGl43 && config != null) {
-            if (isChecked) {
-                new MaterialAlertDialogBuilder(MainActivity.this)
-                        .setTitle(getString(R.string.dialog_title_warning))
-                        .setMessage(getString(R.string.warning_ext_gl43_enable))
-                        .setCancelable(false)
-                        .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
-                        .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
-                            try {
-                                config.setEnableExtGL43(1);
-                            } catch (IOException e) {
-                                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
-                                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtGl43.setChecked(false))
-                        .show();
-            } else {
-                try {
-                    config.setEnableExtGL43(0);
-                } catch (IOException e) {
-                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
-                    Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
         if (compoundButton == binding.switchExtCs && config != null) {
             if (isChecked) {
                 new MaterialAlertDialogBuilder(MainActivity.this)
@@ -756,7 +744,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             try {
                                 config.setEnableExtComputeShader(1);
                             } catch (IOException e) {
-                                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -766,7 +754,40 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 try {
                     config.setEnableExtComputeShader(0);
                 } catch (IOException e) {
-                    Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                    Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        if (compoundButton == binding.switchExtTimerQuery && config != null) {
+            try {
+                config.setEnableExtTimerQuery(isChecked ? 0 : 1); // disable (ui) -> enable (json)
+            } catch (IOException e) {
+                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+            }
+        }
+	if (compoundButton == binding.switchExtDirectStateAccess && config != null) {
+            if (isChecked) {
+                new MaterialAlertDialogBuilder(MainActivity.this)
+                        .setTitle(getString(R.string.dialog_title_warning))
+                        .setMessage(getString(R.string.warning_ext_direct_state_access_enable)).setCancelable(false)
+                        .setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK)
+                        .setPositiveButton(getString(R.string.dialog_positive), (dialog, which) -> {
+                            try {
+                                config.setEnableExtDirectStateAccess(1);
+                            } catch (IOException e) {
+                                Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
+                                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.dialog_negative), (dialog, which) -> binding.switchExtDirectStateAccess.setChecked(false))
+                        .show();
+            } else {
+                try {
+                    config.setEnableExtDirectStateAccess(0);
+                } catch (IOException e) {
+                    Logger.getLogger("MG_AP").log(Level.SEVERE, "Failed to save config! Exception: ", e);
                     Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -804,14 +825,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
             }
         }
-        if (compoundButton == binding.switchExtDirectStateAccess && config != null) {
-            try {
-                config.setEnableExtDirectStateAccess(isChecked ? 0 : 1); // disable (ui) -> enable (json)
-            } catch (IOException e) {
-                Logger.getLogger("MG").log(Level.SEVERE, "Failed to save config! Exception: ", e);
-                Toast.makeText(MainActivity.this, getString(R.string.warning_save_failed), Toast.LENGTH_SHORT).show();
-            }
-        }
+
     }
 
     @Override
@@ -873,7 +887,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         int[] contextAttributes = {
-                EGL14.EGL_CONTEXT_CLIENT_VERSION, 2,
+                EGL14.EGL_CONTEXT_CLIENT_VERSION, 3,
                 EGL14.EGL_NONE
         };
         EGLContext eglContext = EGL14.eglCreateContext(eglDisplay, eglConfigs[0], EGL14.EGL_NO_CONTEXT, contextAttributes, 0);
