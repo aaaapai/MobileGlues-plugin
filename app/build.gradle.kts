@@ -10,9 +10,10 @@ android {
     defaultConfig {
         applicationId = "com.fcl.plugin.mobileglues.ap"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1299
         versionName = "1.13.0·Beta"
+    }
 
     packaging {
         jniLibs {
