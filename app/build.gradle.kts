@@ -40,9 +40,9 @@ android {
         }
 
         configureEach {
-            resValue("string","app_name","MobileG鹿es")
+            resValue("string","app_name","MobileG鹿es_ap")
 
-            manifestPlaceholders["des"] = "MobileG鹿es (OpenGL 4.0, 1.17.0.0.0+)"
+            manifestPlaceholders["des"] = "MobileG鹿es_ap (OpenGL 4.0, 1.17.0.0.0+)"
             manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libmobileglues.so"
 
             manifestPlaceholders["minMCVer"] = "1.17"
