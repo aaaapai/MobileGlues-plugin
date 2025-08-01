@@ -10,11 +10,9 @@ android {
     defaultConfig {
         applicationId = "com.fcl.plugin.mobileglues.ap"
         minSdk = 21
-        targetSdk = 36
-        versionCode = 1271
-        versionName = "1.21.7 - hotfix1"
-
-    }
+        targetSdk = 35
+        versionCode = 1299
+        versionName = "1.13.0·Beta"
 
     packaging {
         jniLibs {
@@ -42,10 +40,10 @@ android {
         }
 
         configureEach {
-            resValue("string","app_name","MobileG鹿es")
+            resValue("string","app_name","MobileG鹿es_ap")
 
-            manifestPlaceholders["des"] = "MobileG鹿es_ap (OpenGL 4.0, 1.17.0.0.0.0++)"
-            manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libEGL.so"
+            manifestPlaceholders["des"] = "MobileG鹿es_ap (OpenGL 4.0, 1.17.0.0.0+)"
+            manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libmobileglues.so"
 
             manifestPlaceholders["minMCVer"] = "1.17"
             manifestPlaceholders["maxMCVer"] = "" //为空则不限制 No restriction if empty
@@ -62,8 +60,10 @@ android {
             }
             manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so,libshaderc.so")
-                put("POJAV_RENDERER", "opengles3_MobileGlues_ap")
+                put("DLOPEN", "libspirv-cross-c-shared.so")
+                put("POJAV_RENDERER", "opengles3_mg_ap")
+				put("POJAVEXEC_EGL", "libmobileglues.so")
+				put("LIBGL_EGL", "libmobileglues.so")
             }.run {
                 var env = ""
                 forEach { (key, value) ->
