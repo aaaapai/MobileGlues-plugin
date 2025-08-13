@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.fcl.plugin.mobileglues"
-        minSdk = 26
+        minSdk = 21
         targetSdk = 36
         versionCode = 1300
         versionName = "1.3.0"
@@ -74,11 +74,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "21"
     }
     buildFeatures {
         buildConfig = true
