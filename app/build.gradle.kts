@@ -11,8 +11,8 @@ android {
         applicationId = "com.fcl.plugin.mobileglues.ap"
         minSdk = 21
         targetSdk = 36
-        versionCode = 1299
-        versionName = "1.13.0·Beta"
+        versionCode = 1300
+        versionName = "1.13.0"
     }
 
     packaging {
