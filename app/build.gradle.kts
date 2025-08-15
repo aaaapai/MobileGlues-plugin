@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.fcl.plugin.mobileglues"
+    namespace = "com.fcl.plugin.mobileglues.ap"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.fcl.plugin.mobileglues"
+        applicationId = "com.fcl.plugin.mobileglues.ap"
         minSdk = 21
         targetSdk = 36
         versionCode = 1300
@@ -39,8 +39,8 @@ android {
         configureEach {
             resValue("string","app_name","MobileGlues_ap")
 
-            manifestPlaceholders["des"] = "MobileGlues (OpenGL 4.0, 1.17+)"
-            manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libmobileglues.so"
+            manifestPlaceholders["des"] = "MobileGlues_ap (OpenGL 4.0, 1.17+)"
+            manifestPlaceholders["renderer"] = "MobileGlues_ap:libmobileglues.so:libmobileglues.so"
 
             manifestPlaceholders["minMCVer"] = "1.17"
             manifestPlaceholders["maxMCVer"] = "" //为空则不限制 No restriction if empty
