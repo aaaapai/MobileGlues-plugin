@@ -1,9 +1,9 @@
-package com.fcl.plugin.mobileglues.utils
+package com.fcl.plugin.mobileglues.ap.utils
 
 import android.os.Environment
 
 object Constants {
-    val MG_DIRECTORY: String = "${Environment.getExternalStorageDirectory().absolutePath}/MG"
+    val MG_DIRECTORY: String = "${Environment.getExternalStorageDirectory().absolutePath}/MG_AP"
 
     val CONFIG_FILE_PATH: String = "$MG_DIRECTORY/config.json"
 
