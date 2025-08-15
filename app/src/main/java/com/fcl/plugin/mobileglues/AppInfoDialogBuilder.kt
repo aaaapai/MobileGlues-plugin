@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues
+package com.fcl.plugin.mobileglues.ap
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -22,7 +22,7 @@ class AppInfoDialogBuilder(context: Context) : MaterialAlertDialogBuilder(contex
             context.startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    "https://github.com/MobileGL-Dev/MobileGlues-release".toUri()
+                    "https://github.com/aaaapai/MobileGlues".toUri()
                 )
             )
         }
