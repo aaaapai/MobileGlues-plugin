@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues.settings
+package com.fcl.plugin.mobileglues.ap.settings
 
 import android.content.Context
 import android.os.Build
@@ -6,9 +6,9 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.fcl.plugin.mobileglues.MainActivity
-import com.fcl.plugin.mobileglues.utils.Constants
-import com.fcl.plugin.mobileglues.utils.FileUtils
+import com.fcl.plugin.mobileglues.ap.MainActivity
+import com.fcl.plugin.mobileglues.ap.utils.Constants
+import com.fcl.plugin.mobileglues.ap.utils.FileUtils
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -23,18 +23,16 @@ data class MGConfig(val context: Context) {
     // 使用 Delegates.observable 委托属性
     var enableANGLE: Int by Delegates.observable(1) { _, old, new -> if (old != new) save() }
     var enableNoError: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
-    var enableExtGL43: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
     var enableExtTimerQuery: Int by Delegates.observable(1) { _, old, new -> if (old != new) save() }
-    var enableExtComputeShader: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
-    var enableExtDirectStateAccess: Int by Delegates.observable(1) { _, old, new -> if (old != new) save() }
-    var maxGlslCacheSize: Int by Delegates.observable(32) { _, old, new ->
+    var enableExtComputeShader: Int by Delegates.observable(1) { _, old, new -> if (old != new) save() }
+    var enableExtDirectStateAccess: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
+    var maxGlslCacheSize: Int by Delegates.observable(114514) { _, old, new ->
         if (old != new) {
             if (new == -1) clearCacheFile()
             save()
         }
     }
-    var multidrawMode: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
-    var angleDepthClearFixMode: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
+    var multidrawMode: Int by Delegates.observable(7) { _, old, new -> if (old != new) save() }
     var customGLVersion: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
     var fsr1Setting: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
 
@@ -66,14 +64,12 @@ data class MGConfig(val context: Context) {
                 Gson().fromJson(configStr, JsonObject::class.java).apply {
                     config.enableANGLE = this.get("enableANGLE")?.asInt ?: 1
                     config.enableNoError = this.get("enableNoError")?.asInt ?: 0
-                    config.enableExtGL43 = this.get("enableExtGL43")?.asInt ?: 0
                     config.enableExtTimerQuery = this.get("enableExtTimerQuery")?.asInt ?: 1
-                    config.enableExtComputeShader = this.get("enableExtComputeShader")?.asInt ?: 0
+                    config.enableExtComputeShader = this.get("enableExtComputeShader")?.asInt ?: 1
                     config.enableExtDirectStateAccess =
-                        this.get("enableExtDirectStateAccess")?.asInt ?: 1
-                    config.maxGlslCacheSize = this.get("maxGlslCacheSize")?.asInt ?: 32
-                    config.multidrawMode = this.get("multidrawMode")?.asInt ?: 0
-                    config.angleDepthClearFixMode = this.get("angleDepthClearFixMode")?.asInt ?: 0
+                        this.get("enableExtDirectStateAccess")?.asInt ?: 0
+                    config.maxGlslCacheSize = this.get("maxGlslCacheSize")?.asInt ?: 114514
+                    config.multidrawMode = this.get("multidrawMode")?.asInt ?: 7
                     config.customGLVersion = this.get("customGLVersion")?.asInt ?: 0
                     config.fsr1Setting = this.get("fsr1Setting")?.asInt ?: 0
                 }
@@ -81,7 +77,7 @@ data class MGConfig(val context: Context) {
                 // 处理历史遗留问题
                 val obj = JsonParser.parseString(configStr).asJsonObject
                 if (!obj.has("enableExtTimerQuery")) config.enableExtTimerQuery = 1
-                if (!obj.has("enableExtDirectStateAccess")) config.enableExtDirectStateAccess = 1
+                if (!obj.has("enableExtDirectStateAccess")) config.enableExtDirectStateAccess = 0
             } catch (_: Exception) {
             }
 
@@ -100,7 +96,7 @@ data class MGConfig(val context: Context) {
                     FileUtils.deleteFileViaSAF(context, it, "config.json")
                 }
             } else {
-                val configFile = File(Environment.getExternalStorageDirectory(), "MG/config.json")
+                val configFile = File(Environment.getExternalStorageDirectory(), "MG_AP/config.json")
                 if (configFile.exists()) FileUtils.deleteFile(configFile)
             }
         } catch (_: Exception) {
@@ -131,13 +127,11 @@ data class MGConfig(val context: Context) {
         val configMap = mapOf(
             "enableANGLE" to enableANGLE,
             "enableNoError" to enableNoError,
-            "enableExtGL43" to enableExtGL43,
             "enableExtTimerQuery" to enableExtTimerQuery,
             "enableExtComputeShader" to enableExtComputeShader,
             "enableExtDirectStateAccess" to enableExtDirectStateAccess,
             "maxGlslCacheSize" to maxGlslCacheSize,
             "multidrawMode" to multidrawMode,
-            "angleDepthClearFixMode" to angleDepthClearFixMode,
             "customGLVersion" to customGLVersion,
             "fsr1Setting" to fsr1Setting
         )
