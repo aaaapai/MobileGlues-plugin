@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             "OpenGL 4.2" to 42,
             "OpenGL 4.1" to 41,
             "OpenGL 4.0" to 40,
-            "OpenGL 3.8" to 33,
+            "OpenGL 3.8" to 38,
             "OpenGL 3.3" to 33,
             "OpenGL 3.2" to 32,
             "OpenGL 3.1" to 31,
@@ -87,13 +87,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             "OpenGL 2.1" to 21,
             "OpenGL 2.0" to 20,
             "OpenGL 1.8" to 18,
-            "OpenGL 1.5" to 14,
-            "OpenGL 1.4" to 32,
-            "OpenGL 1.3" to 32,
-            "OpenGL 1.2" to 32,
-            "OpenGL 1.1" to 32,
-            "OpenGL 1.0" to 32,
-            "OpenGL 0.1" to 32,
+            "OpenGL 1.5" to 15,
+            "OpenGL 1.4" to 14,
+            "OpenGL 1.3" to 13,
+            "OpenGL 1.2" to 12,
+            "OpenGL 1.1" to 11,
+            "OpenGL 1.0" to 10,
+            "OpenGL 0.1" to 01,
             "即刻轮回" to 00     
         )
     }
@@ -249,13 +249,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         // GL Version 选项
         addCustomGLVersionOptions()
 
-        // ANGLE Clear Workaround 选项
-        ArrayAdapter.createFromResource(
-            this, R.array.angle_clear_workaround_options, R.layout.spinner
-        ).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.spinner)
-            binding.angleClearWorkaround.adapter = adapter
-        }
     }
 
     private fun hasMgDirectoryAccess(): Boolean {
@@ -430,13 +423,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     }
                 }
             } else {
-                val file = File(Environment.getExternalStorageDirectory(), "MG/$fileName")
+                val file = File(Environment.getExternalStorageDirectory(), "MG_AP/$fileName")
                 if (file.exists()) {
                     FileUtils.deleteFile(file)
                 }
             }
         } catch (e: Exception) {
-            Log.w("MG", "删除文件失败: $fileName", e)
+            Log.w("MG_AP", "删除文件失败: $fileName", e)
         }
     }
 
@@ -450,13 +443,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     }
                 }
             } else {
-                val mgDir = File(Environment.getExternalStorageDirectory(), "MG")
+                val mgDir = File(Environment.getExternalStorageDirectory(), "MG_AP")
                 if (mgDir.exists() && mgDir.isDirectory && mgDir.listFiles()?.isEmpty() == true) {
                     FileUtils.deleteFile(mgDir)
                 }
             }
         } catch (e: Exception) {
-            Log.w("MG", "删除目录失败", e)
+            Log.w("MG_AP", "删除目录失败", e)
         }
     }
 
@@ -471,7 +464,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     )
                 }
         } catch (e: Exception) {
-            Logger.getLogger("MG").log(Level.WARNING, "移除 SAF 权限失败", e)
+            Logger.getLogger("MG_AP").log(Level.WARNING, "移除 SAF 权限失败", e)
         }
     }
 
@@ -492,18 +485,16 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             // 规范化配置值
             if (cfg.enableANGLE !in 0..3) cfg.enableANGLE = 0
             if (cfg.enableNoError !in 0..3) cfg.enableNoError = 0
-            if (cfg.maxGlslCacheSize == Types.NULL) cfg.maxGlslCacheSize = 32
+            if (cfg.maxGlslCacheSize == Types.NULL) cfg.maxGlslCacheSize = 114514
 
             // 更新 UI
             binding.inputMaxGlslCacheSize.setText(cfg.maxGlslCacheSize.toString())
             binding.spinnerAngle.setSelection(cfg.enableANGLE)
             binding.spinnerNoError.setSelection(cfg.enableNoError)
             binding.spinnerMultidrawMode.setSelection(cfg.multidrawMode)
-            binding.angleClearWorkaround.setSelection(cfg.angleDepthClearFixMode)
-            binding.switchExtGl43.isChecked = cfg.enableExtGL43 == 1
             binding.switchExtTimerQuery.isChecked = cfg.enableExtTimerQuery == 0
-            binding.switchExtDirectStateAccess.isChecked = cfg.enableExtDirectStateAccess == 0
-            binding.switchExtCs.isChecked = cfg.enableExtComputeShader == 1
+            binding.switchExtDirectStateAccess.isChecked = cfg.enableExtDirectStateAccess == 1
+            binding.switchExtCs.isChecked = cfg.enableExtComputeShader == 0
             binding.switchEnableFsr1.isChecked = cfg.fsr1Setting == 1
             setCustomGLVersionSpinnerSelectionByGLVersion(cfg.customGLVersion)
         }
@@ -529,7 +520,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     }
                 } else {
                     binding.inputMaxGlslCacheSizeLayout.error = null
-                    config?.maxGlslCacheSize = 32 // 默认值
+                    config?.maxGlslCacheSize = 114514 // 默认值
                 }
             }
 
@@ -598,7 +589,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     // EXTRA_INITIAL_URI 是可选的，但可以改善用户体验
                     intent.putExtra(
                         DocumentsContract.EXTRA_INITIAL_URI,
-                        (Environment.getExternalStorageDirectory().toString() + "/MG").toUri()
+                        (Environment.getExternalStorageDirectory().toString() + "/MG_AP").toUri()
                     )
                     safLauncher.launch(intent)
                 }
@@ -726,13 +717,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         if (config == null) return
 
         when (compoundButton.id) {
-            R.id.switch_ext_gl43 -> handleSwitchWithWarning(
-                isChecked,
-                R.string.warning_ext_gl43_enable,
-                { config?.enableExtGL43 = 1 },
-                { config?.enableExtGL43 = 0 },
-                compoundButton
-            )
 
             R.id.switch_ext_cs -> handleSwitchWithWarning(
                 isChecked,
