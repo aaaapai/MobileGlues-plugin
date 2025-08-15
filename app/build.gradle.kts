@@ -39,7 +39,7 @@ android {
         }
 
         configureEach {
-            resValue("string","app_name","MobileGlues")
+            resValue("string","app_name","MobileGlues_ap")
 
             manifestPlaceholders["des"] = "MobileGlues (OpenGL 4.0, 1.17+)"
             manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libmobileglues.so"
@@ -59,8 +59,12 @@ android {
             }
             manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
                 put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
-                put("POJAV_RENDERER", "opengles3")
+                put("LIBGL_EGL", "libmobileglues.so")
+                put("LIBGL_NOERROR", "1")
+                put("LIBGL_MIPMAP", "3")
+                put("LIBGL_FB", "3")
+                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderc.so")
+                put("POJAV_RENDERER", "opengles3_mobileglues")
 				put("POJAVEXEC_EGL", "libmobileglues.so")
 				put("LIBGL_EGL", "libmobileglues.so")
             }.run {
