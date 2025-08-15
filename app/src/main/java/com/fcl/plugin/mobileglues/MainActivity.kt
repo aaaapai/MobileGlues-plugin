@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues
+package com.fcl.plugin.mobileglues.ap
 
 import android.Manifest
 import android.content.DialogInterface
@@ -37,12 +37,12 @@ import androidx.core.net.toUri
 import androidx.core.view.WindowInsetsCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.lifecycleScope
-import com.fcl.plugin.mobileglues.databinding.ActivityMainBinding
-import com.fcl.plugin.mobileglues.settings.FolderPermissionManager
-import com.fcl.plugin.mobileglues.settings.MGConfig
-import com.fcl.plugin.mobileglues.utils.Constants
-import com.fcl.plugin.mobileglues.utils.FileUtils
-import com.fcl.plugin.mobileglues.utils.toast
+import com.fcl.plugin.mobileglues.ap.databinding.ActivityMainBinding
+import com.fcl.plugin.mobileglues.ap.settings.FolderPermissionManager
+import com.fcl.plugin.mobileglues.ap.settings.MGConfig
+import com.fcl.plugin.mobileglues.ap.utils.Constants
+import com.fcl.plugin.mobileglues.ap.utils.FileUtils
+import com.fcl.plugin.mobileglues.ap.utils.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -61,6 +61,16 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     private val glVersionMap: Map<String, Int> by lazy {
         linkedMapOf(
             getString(R.string.option_angle_disable) to 0,
+            "OpenGL 9.9" to 99,
+            "OpenGL 9.8" to 98,
+            "OpenGL 9.1" to 91,
+            "OpenGL 8.8" to 88,
+            "OpenGL 7.8" to 78,
+            "OpenGL 7.1" to 71,
+            "OpenGL 6.6" to 66,
+            "OpenGL 6.1" to 61,
+            "OpenGL 5.1" to 51,
+            "OpenGL 4.8" to 48,
             "OpenGL 4.6" to 46,
             "OpenGL 4.5" to 45,
             "OpenGL 4.4" to 44,
@@ -68,8 +78,23 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             "OpenGL 4.2" to 42,
             "OpenGL 4.1" to 41,
             "OpenGL 4.0" to 40,
+            "OpenGL 3.8" to 33,
             "OpenGL 3.3" to 33,
-            "OpenGL 3.2" to 32
+            "OpenGL 3.2" to 32,
+            "OpenGL 3.1" to 31,
+            "OpenGL 3.0" to 30,
+            "OpenGL 2.5" to 25,
+            "OpenGL 2.1" to 21,
+            "OpenGL 2.0" to 20,
+            "OpenGL 1.8" to 18,
+            "OpenGL 1.5" to 14,
+            "OpenGL 1.4" to 32,
+            "OpenGL 1.3" to 32,
+            "OpenGL 1.2" to 32,
+            "OpenGL 1.1" to 32,
+            "OpenGL 1.0" to 32,
+            "OpenGL 0.1" to 32,
+            "即刻轮回" to 00     
         )
     }
 
