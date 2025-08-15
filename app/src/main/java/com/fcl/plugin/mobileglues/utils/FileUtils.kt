@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues.utils
+package com.fcl.plugin.mobileglues.ap.utils
 
 import android.content.Context
 import android.net.Uri
@@ -115,7 +115,7 @@ object FileUtils {
     }
 
     fun deleteAppFiles() {
-        val mgDir = File(Environment.getExternalStorageDirectory(), "MG")
+        val mgDir = File(Environment.getExternalStorageDirectory(), "MG_AP")
         val config = File(mgDir, "config.json")
         val cache = File(mgDir, "glsl_cache.tmp")
         val log = File(mgDir, "latest.log")
