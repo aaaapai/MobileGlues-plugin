@@ -81,9 +81,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "21"
-    }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
@@ -93,6 +91,10 @@ android {
             useLegacyPackaging = true
         }
     }
+}
+
+kotlin {
+    jvmToolchain(21) // 自动同步 JDK 工具链（编译、测试、运行均使用 JDK 21）
 }
 
 dependencies {
