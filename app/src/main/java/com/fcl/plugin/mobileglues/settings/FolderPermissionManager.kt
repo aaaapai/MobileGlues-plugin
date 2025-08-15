@@ -1,4 +1,4 @@
-package com.fcl.plugin.mobileglues.settings
+package com.fcl.plugin.mobileglues.ap.settings
 
 import android.content.ContentResolver
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.UriPermission
 import android.net.Uri
 import android.os.Environment
 import android.provider.DocumentsContract
-import com.fcl.plugin.mobileglues.utils.Constants
+import com.fcl.plugin.mobileglues.ap.utils.Constants
 import java.io.File
 
 class FolderPermissionManager(private val context: Context) {
