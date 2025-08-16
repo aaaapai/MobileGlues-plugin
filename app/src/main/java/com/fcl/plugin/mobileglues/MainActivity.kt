@@ -713,8 +713,14 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
             R.id.switch_ext_timer_query -> config?.enableExtTimerQuery =
                 if (isChecked) 0 else 1 // UI (disable) -> JSON (enable)
-            R.id.switch_ext_direct_state_access -> config?.enableExtDirectStateAccess =
-                if (isChecked) 0 else 1
+    
+            R.id.switch_ext_direct_state_access -> handleSwitchWithWarning(
+                isChecked,
+                R.string.warning_ext_direct_state_access_enable,
+                { config?.enableExtDirectStateAccess = 1 },
+                { config?.enableExtDirectStateAccess = 0 },
+                compoundButton
+            )
         }
     }
 
