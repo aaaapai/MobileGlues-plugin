@@ -45,6 +45,7 @@ import com.fcl.plugin.mobileglues.ap.utils.FileUtils
 import com.fcl.plugin.mobileglues.ap.utils.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -319,7 +320,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             override fun onFinish() {
                 positiveButton.text = getString(R.string.ok)
                 positiveButton.setTextColor(
-                    ContextCompat.getColor(this, com.google.android.material.R.color.material_color_error)
+                    ContextCompat.getColor(this, MDC_R.color.material_color_error)
                 )
                 positiveButton.isEnabled = true
             }
