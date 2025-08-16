@@ -93,8 +93,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             "OpenGL 1.2" to 12,
             "OpenGL 1.1" to 11,
             "OpenGL 1.0" to 10,
-            "OpenGL 0.1" to 01,
-            "即刻轮回" to 00     
+            "即刻轮回" to 0   
         )
     }
 
