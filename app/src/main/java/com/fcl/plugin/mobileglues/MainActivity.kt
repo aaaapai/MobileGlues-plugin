@@ -319,7 +319,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             override fun onFinish() {
                 positiveButton.text = getString(R.string.ok)
                 positiveButton.setTextColor(
-                    ContextCompat.getColor(this@MainActivity, MDC_R.attr.colorError)
+                    ContextCompat.getColor(this@MainActivity, MDC_R.attr.colorOnError)
                 )
                 positiveButton.isEnabled = true
             }
@@ -673,7 +673,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                         positiveButton.text = getString(R.string.ok)
                         positiveButton.setTextColor(
                             theme.obtainStyledAttributes(
-                                intArrayOf(MDC_R.attr.colorError)
+                                intArrayOf(MDC_R.attr.colorOnError)
                             ).getColor(0, 0)
                         )
                         positiveButton.isEnabled = true
