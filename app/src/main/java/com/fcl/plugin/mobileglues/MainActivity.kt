@@ -320,7 +320,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     positiveButton.text = getString(R.string.ok)
                     positiveButton.setTextColor(
                         theme.obtainStyledAttributes(
-                            intArrayOf(MDC_R.attr.boxStrokeErrorColor)
+                            intArrayOf(MDC_R.color.design_default_color_error)
                         ).getColor(0, 0)
                     )
                     positiveButton.isEnabled = true
@@ -674,7 +674,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                         positiveButton.text = getString(R.string.ok)
                         positiveButton.setTextColor(
                             theme.obtainStyledAttributes(
-                                intArrayOf(MDC_R.attr.colorOnErrorContainer)
+                                intArrayOf(MDC_R.color.design_default_color_error)
                             ).getColor(0, 0)
                         )
                         positiveButton.isEnabled = true
