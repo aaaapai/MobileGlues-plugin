@@ -492,8 +492,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             binding.spinnerNoError.setSelection(cfg.enableNoError)
             binding.spinnerMultidrawMode.setSelection(cfg.multidrawMode)
             binding.switchExtTimerQuery.isChecked = cfg.enableExtTimerQuery == 0
-            binding.switchExtDirectStateAccess.isChecked = cfg.enableExtDirectStateAccess == 1
-            binding.switchExtCs.isChecked = cfg.enableExtComputeShader == 0
+            binding.switchExtDirectStateAccess.isChecked = cfg.enableExtDirectStateAccess == 0
+            binding.switchExtCs.isChecked = cfg.enableExtComputeShader == 1
             binding.switchEnableFsr1.isChecked = cfg.fsr1Setting == 1
             setCustomGLVersionSpinnerSelectionByGLVersion(cfg.customGLVersion)
         }
