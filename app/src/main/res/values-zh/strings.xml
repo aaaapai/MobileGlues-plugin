@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MobileGlues_ap</string>
+    <string name="app_name">MobileGlues</string>
 
     <string name="view_version">版本：</string>
     <string name="view_author">开花者：</string>
