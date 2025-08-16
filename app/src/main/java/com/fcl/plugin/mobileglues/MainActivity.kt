@@ -317,13 +317,14 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                 }
 
             override fun onFinish() {
-                positiveButton.text = getString(R.string.ok)
-                positiveButton.setTextColor(
-                    ContextCompat.getColor(this@MainActivity, MDC_R.attr.colorOnError)
-                )
-                positiveButton.isEnabled = true
-            }
-
+                    positiveButton.text = getString(R.string.ok)
+                    positiveButton.setTextColor(
+                        theme.obtainStyledAttributes(
+                            intArrayOf(MDC_R.attr.colorErrorContainer)
+                        ).getColor(0, 0)
+                    )
+                    positiveButton.isEnabled = true
+                }
             }.start()
         }
         dialog.show()
@@ -673,7 +674,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                         positiveButton.text = getString(R.string.ok)
                         positiveButton.setTextColor(
                             theme.obtainStyledAttributes(
-                                intArrayOf(MDC_R.attr.colorOnError)
+                                intArrayOf(MDC_R.attr.colorErrorContainer)
                             ).getColor(0, 0)
                         )
                         positiveButton.isEnabled = true
