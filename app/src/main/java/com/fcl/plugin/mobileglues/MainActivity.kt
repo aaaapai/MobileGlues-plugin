@@ -316,15 +316,14 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     positiveButton.text = getString(R.string.ok_with_countdown, remainingSeconds)
                 }
 
-                override fun onFinish() {
-                    positiveButton.text = getString(R.string.ok)
-                    positiveButton.setTextColor(
-                        theme.obtainStyledAttributes(
-                            intArrayOf(MDC_R.attr.colorError)
-                        ).getColor(0, 0)
-                    )
-                    positiveButton.isEnabled = true
-                }
+            override fun onFinish() {
+                positiveButton.text = getString(R.string.ok)
+                positiveButton.setTextColor(
+                    ContextCompat.getColor(this, com.google.android.material.R.color.material_color_error)
+                )
+                positiveButton.isEnabled = true
+            }
+
             }.start()
         }
         dialog.show()
@@ -540,9 +539,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         binding.spinnerNoError.onItemSelectedListener = itemListener
         binding.spinnerMultidrawMode.onItemSelectedListener = itemListener
         binding.spinnerCustomGlVersion.onItemSelectedListener = itemListener
-        binding.angleClearWorkaround.onItemSelectedListener = itemListener
 
-        binding.switchExtGl43.setOnCheckedChangeListener(checkedListener)
         binding.switchExtCs.setOnCheckedChangeListener(checkedListener)
         binding.switchExtTimerQuery.setOnCheckedChangeListener(checkedListener)
         binding.switchExtDirectStateAccess.setOnCheckedChangeListener(checkedListener)
@@ -636,27 +633,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             R.id.spinner_no_error -> config?.enableNoError = position
             R.id.spinner_multidraw_mode -> config?.multidrawMode = position
             R.id.spinner_custom_gl_version -> handleCustomGLVersionSelection(position)
-            R.id.angle_clear_workaround -> {
-                val previous = config!!.angleDepthClearFixMode
-                if (position == previous) return
-                if (position >= 1) {
-                    MaterialAlertDialogBuilder(this)
-                        .setTitle(getString(R.string.dialog_title_warning))
-                        .setMessage(getString(R.string.warning_enabling_angle_clear_workaround))
-                        .setPositiveButton(getString(R.string.dialog_positive)) { _, _ ->
-                            config?.angleDepthClearFixMode = position
-                        }
-                        .setNegativeButton(getString(R.string.dialog_negative)) { _, _ ->
-                            isSpinnerInitialized = false
-                            binding.angleClearWorkaround.setSelection(config!!.angleDepthClearFixMode)
-                            isSpinnerInitialized = true
-                        }
-                        .setCancelable(false)
-                        .show()
-                } else {
-                    config?.angleDepthClearFixMode = position
-                }
-            }
+
         }
     }
 
