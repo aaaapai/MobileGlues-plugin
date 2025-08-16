@@ -32,7 +32,7 @@ data class MGConfig(val context: Context) {
             save()
         }
     }
-    var multidrawMode: Int by Delegates.observable(7) { _, old, new -> if (old != new) save() }
+    var multidrawMode: Int by Delegates.observable(5) { _, old, new -> if (old != new) save() }
     var customGLVersion: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
     var fsr1Setting: Int by Delegates.observable(0) { _, old, new -> if (old != new) save() }
 
@@ -69,7 +69,7 @@ data class MGConfig(val context: Context) {
                     config.enableExtDirectStateAccess =
                         this.get("enableExtDirectStateAccess")?.asInt ?: 0
                     config.maxGlslCacheSize = this.get("maxGlslCacheSize")?.asInt ?: 114514
-                    config.multidrawMode = this.get("multidrawMode")?.asInt ?: 7
+                    config.multidrawMode = this.get("multidrawMode")?.asInt ?: 5
                     config.customGLVersion = this.get("customGLVersion")?.asInt ?: 0
                     config.fsr1Setting = this.get("fsr1Setting")?.asInt ?: 0
                 }
