@@ -53,6 +53,7 @@ import java.sql.Types
 import java.util.logging.Level
 import java.util.logging.Logger
 import kotlin.system.exitProcess
+import androidx.appcompat.R
 import com.google.android.material.R as MDC_R
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
@@ -320,7 +321,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     positiveButton.text = getString(R.string.ok)
                     positiveButton.setTextColor(
                         theme.obtainStyledAttributes(
-                            intArrayOf(MDC_R.attr.errorTextColor)
+                            intArrayOf(androidx.appcompat.R.attr.colorError)
                         ).getColor(0, 0)
                     )
                     positiveButton.isEnabled = true
@@ -674,7 +675,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                         positiveButton.text = getString(R.string.ok)
                         positiveButton.setTextColor(
                             theme.obtainStyledAttributes(
-                                intArrayOf(MDC_R.attr.errorTextColor)
+                                intArrayOf(androidx.appcompat.R.attr.colorError)
                             ).getColor(0, 0)
                         )
                         positiveButton.isEnabled = true
