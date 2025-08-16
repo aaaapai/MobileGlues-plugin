@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# 保留 Kotlin 协程相关类
+-keep class kotlin.coroutines.jvm.internal.** { *; }
+-keep class kotlinx.coroutines.** { *; }
+
+# 保留 suspend 函数
+-keepclassmembers class * {
+    *** invokeSuspend(java.lang.Object);
+}
