@@ -24,9 +24,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("../keystore.jks")
-            storePassword = System.getenv("SIGNING_STORE_PASSWORD") ?: project.findProperty("SIGNING_STORE_PASSWORD") as String?
-            keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: project.findProperty("SIGNING_KEY_ALIAS") as String?
-            keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: project.findProperty("SIGNING_KEY_PASSWORD") as String?
+            storePassword = "vh#nn%N(#eNjwfA78-77s6&f-cdd(@-7eana-e%!nhj%))!@c"
+            keyAlias = "movtery_zalith_debug"
+            keyPassword = "sfv72ghSSNQaadf99-Q69!2"
         }
     }
 
