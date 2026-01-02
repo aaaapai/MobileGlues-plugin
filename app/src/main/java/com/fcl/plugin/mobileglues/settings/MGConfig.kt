@@ -147,7 +147,7 @@ data class MGConfig(val context: Context) {
     fun saveToCachePath() {
         if (cacheConfigPath == null) {
             val cacheDir = context.externalCacheDir ?: context.cacheDir
-            cacheMGDir = File(cacheDir, "MG")
+            cacheMGDir = File(cacheDir, "MGL")
             if (!cacheMGDir.exists()) {
                 cacheMGDir.mkdirs()
             }
