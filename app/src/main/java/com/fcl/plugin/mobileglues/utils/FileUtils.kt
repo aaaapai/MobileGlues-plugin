@@ -115,7 +115,7 @@ object FileUtils {
     }
 
     fun deleteAppFiles() {
-        val mgDir = File(Environment.getExternalStorageDirectory(), "MG")
+        val mgDir = File(Environment.getExternalStorageDirectory(), "MGL")
         val config = File(mgDir, "config.json")
         val cache = File(mgDir, "glsl_cache.tmp")
         val log = File(mgDir, "latest.log")
