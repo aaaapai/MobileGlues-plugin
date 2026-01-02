@@ -404,13 +404,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     }
                 }
             } else {
-                val file = File(Environment.getExternalStorageDirectory(), "MG/$fileName")
+                val file = File(Environment.getExternalStorageDirectory(), "MGL/$fileName")
                 if (file.exists()) {
                     FileUtils.deleteFile(file)
                 }
             }
         } catch (e: Exception) {
-            Log.w("MG", "删除文件失败: $fileName", e)
+            Log.w("MGL", "删除文件失败: $fileName", e)
         }
     }
 
@@ -424,13 +424,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     }
                 }
             } else {
-                val mgDir = File(Environment.getExternalStorageDirectory(), "MG")
+                val mgDir = File(Environment.getExternalStorageDirectory(), "MGL")
                 if (mgDir.exists() && mgDir.isDirectory && mgDir.listFiles()?.isEmpty() == true) {
                     FileUtils.deleteFile(mgDir)
                 }
             }
         } catch (e: Exception) {
-            Log.w("MG", "删除目录失败", e)
+            Log.w("MGL", "删除目录失败", e)
         }
     }
 
@@ -445,7 +445,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     )
                 }
         } catch (e: Exception) {
-            Log.w("MG", "移除 SAF 权限失败", e)
+            Log.w("MGL", "移除 SAF 权限失败", e)
         }
     }
 
@@ -577,7 +577,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
                     // 2. 在根 URI 的基础上构建指向 "MG" 文件夹的 Document-URI
                     // Document ID 的格式是 "root:path"
-                    val folderDocumentId = "primary:MG"
+                    val folderDocumentId = "primary:MGL"
                     val initialUri =
                         DocumentsContract.buildDocumentUriUsingTree(rootUri, folderDocumentId)
 
